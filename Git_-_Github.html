@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Git y Github</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Ph D. Stephanie Hereira Pacheco" />
+    <meta name="date" content="2022-09-07" />
+    <script src="Git_-_Github_files/header-attrs/header-attrs.js"></script>
+    <script src="Git_-_Github_files/clipboard/clipboard.min.js"></script>
+    <link href="Git_-_Github_files/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="Git_-_Github_files/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Git y Github
+]
+.author[
+### Ph D. Stephanie Hereira Pacheco
+]
+.institute[
+### CTBC-UATx
+]
+.date[
+### 2022-09-07
+]
+
+---
+
+
+
+background-image: url(https://camo.githubusercontent.com/38f113b96a368dfb7f634d2f2da97e7b8c748042d2a284b97c3fad048bb3ff55/68747470733a2f2f6d69726f2e6d656469756d2e636f6d2f6d61782f323733322f312a6d74736b3366515f4252656d466964686b656c3364412e706e67)
+
+
+
+
+
+---
+class: inverse, center, middle
+
+# Git y versiones de control
+
+---
+class:  middle
+
+## **Para la clase de hoy vamos a necesitar:**
+
+- ####R y Rstudio (últimas versiones recomendable)
+- ####Tener una cuenta Github
+- ####Tener instalado Git:
+
+Instala **Git** de [Aquí](https://git-scm.com/downloads).
+
+---
+
+# Git y versiones de control
+- Git es un programa o sistema de control de versiones gratis y de código abierto. 
+
+- Fue creado por Linus Torvalds en 2005. 
+
+- Su propósito original era ayudar a grupos de desarrolladores a trabajar en colaboración en grandes proyectos de software.
+
+- Git administra la evolución de un conjunto de archivos, llamado repositorio, de una manera sensata y altamente estructurada (control de cambios).
+
+
+---
+# Git y versiones de control
+
+- Los proyectos cambian a lo largo del tiempo y colaborar puede ser complicado con códigos. Además puedes almacenar tus códigos en un repositorio. 
+
+- Git funciona con GitHub, Bitbucked o Gitlab
+
+- Con Git cada colaborador tiene una copia del repositorio central en su pc, con todos los archivos y la historia de los cambios por los que han pasado.
+
+
+
+---
+class: inverse, middle, center
+
+# Github
+
+---
+# Github
+
+- GitHub es una plataforma o servicio web que nos permite guardar y compartir repositorios de Git que podemos usar como servidores remotos.
+
+- Después de crear nuestra cuenta, podemos crear o importar repositorios, crear organizaciones y proyectos de trabajo, descubrir repositorios de otras personas, contribuir a esos proyectos, dar estrellas y muchas otras cosas.
+
+- Muchos de los programas que conocemos y usamos están en repositorios en Github en incluso con el paquete devtools de R podemos instalarlos.
+
+Ejemplo:
+
+
+
+```r
+if (!requireNamespace("devtools", quietly = TRUE)){install.packages("devtools")}
+devtools::install_github("jbisanz/qiime2R")
+```
+
+
+---
+# Git y Github
+
+### Otras ventajas...
+
+- Facilita la contribución a proyectos de código abierto
+
+- Opciones de integración: Git y Github pueden integrarse con otras plataformas como Amazon y Google cloud
+
+- Te permite rastrear los cambios a través de versiones (filogenia/GoogleDocs)
+
+- Te permite compartir y mostrar tu trabajo
+
+- La comunidad de R es muy activa en GitHub. Hay muchos paquetes ahí, como el tidyverse.  GitHub y RStudio se conectan muy bien.
+
+---
+class: center, middle
+
+# Diferencias entre Git y Github
+
+|GIT                | GitHUb      | 
+|-------------------|-------------|
+| Es un programa   |Es un servicio    | 
+| Se instala localmente       | Está en la web    | 
+| Herramienta para gestionar versiones | Espacio para subir una copia del repositorio | 
+            
+---
+class: inverse, middle, center
+
+# ¡Empecemos! 
+
+---
+# Antes...
+
+1. Tener instalado Git
+2. Tener cuenta en GitHub
+3. Tener instalado R y Rstudio
+3. Git y Github se conecten
+4. R esté enlazado con el repositorio (Tener un Proyecto de R para cada trabajo o respositorio)
+
+## Checando si tenemos Git instalado
+
+```{.bash}
+which git y git --version
+```
+
+---
+## Cuenta en [Github](https://github.com/signup?source=login).
+&lt;img src="images/img1.png" width="85%" style="display: block; margin: auto;" /&gt;
+---
+## Qué harás?....
+&lt;img src="images/img2.png" width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+## Tú perfil...
+&lt;img src="images/img3.png" width="85%" style="display: block; margin: auto;" /&gt;
+---
+# Creando un repositorio
+
+.pull-left[
+- Entrar a "Your repositories" y darle crear repositorio nuevo o "New", lo nombramos como queramos. 
+- Añadir una descripción e iniciar el repositorio con un README.
+- Lo demás en default.
+- Dar click en "Create repository". [Hagámoslo juntos](https://github.com/sehereirap).
+]
+
+.pull-right[
+&lt;img src="images/img4.1.png" width="991" style="display: block; margin: auto;" /&gt;
+
+]
+---
+
+# Crear Token en GitHub
+1. En tu perfil de GitHub, dale click a la imagen de perfil (en la esquina superior derecha), y busca la opción de Settings o configuración.
+
+2. Da click a continuación en Developer settings ó Parámetros del desarrollador (hasta abajo).
+
+3. En la barra lateral izquierda da click en Tokens de acceso personal.
+
+4. Haz click en Generar un nuevo token.
+
+5. Escoger el tipo de token dependiendode lo que se  hará (repo, workflow, etc) y el tiempo del token. Y da Generar token.
+
+6. Sale el token y debes guardarlo en un txt o correo o en algún lugar para no perderlo (Sólo lo muestra una vez). [Hagámoslo juntos](https://github.com/sehereirap).
+
+---
+
+# Configurar las credenciales
+
+- Algunos sistemas operativos o pcs guardan el username y password, así que no lo tenemos que poner en cada push en otras se pone una sola vez.
+- Antes te pedían siempre el user y password pero ahora por nuevas políticas piden el token.
+
+Para configurarlo por primera vez, esto lo hacemos desde la terminal:
+
+```{.bash}
+git config --global user.name "sehereirap"
+git config --global user.email sehereirap@uaxt.mx
+git config --global --list
+```
+---
+
+## Probemos nuestro Git en terminal
+
+## Clonemos un repositorio para ejemplo
+
+```{.bash}
+git clone https://github.com/Steph0522/R_Basics_Lab53.git
+cd R_Basics_Lab53/
+ls -la
+head README.md
+```
+
+## Hagamos cambios en este repo
+
+```{.bash}
+echo "Pruebo agregar esto" &gt;&gt; README.md
+git status
+git add README.md
+git commit -m "A commit from my local computer"
+git pull
+git push
+```
+
+---
+background-image: url(https://scientificbsides.files.wordpress.com/2015/12/in-case-of-fire-1-git-commit-2-git-push-3-leave-building2.png)
+background-size: contain
+
+---
+## Algunas recomendaciones...
+
+- Siempre usar git pull antes de git push ó podrán haber errores de versiones.
+
+- Usar mensajes INFORMATIVOS en los commits.
+
+- Verifica si los cambios se subieron a GitHub
+
+&lt;img src="http://i.imgflip.com/3fujfe.jpg" width="20%" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Conectado Git y Github con Rstudio
+Vamos a Rstudio y vamos configurar allí credenciales y PAT (token) con el paquete **usethis**:
+
+```{.bash}
+usethis::use_git_config(user.name = "sehereirap", user.email = "sehereirap@uatx.mx")
+usethis::edit_r_environ()
+```
+ Les va a salir una línea donde pondrán su token, algo así, cuidar espacios:
+```{.bash}
+GITHUB_PAT=ghp_KtgbrihBJq5Baqdn6aaacQgtXuaEDkrN2eLSZ7
+```
+ 
+Dependiendo del sistema operativo y pc ya en Rstudio no les pedirá más su user o token. En algunos casos sí lo seguirá pidiendo.
+
+---
+
+# Conectado Git y Github con Rstudio
+
+Ahora sí vamos cargar o clonar nuestro repositorio en Rstudio:
+
+1. Crea un proyecto en RStudio:  File &gt; New Project &gt; Version Control &gt; Git. Ahi pega el URL del repositorio.
+
+2.Git va a aparecer en la esquina superior.
+
+Esto que acabamos de hacer nos permitirá tener un nuevo directorio, proyecto y el respositorio de GitHub enlazado a nuestro Rstudio. 
+
+---
+# Commit, pull y push en RStudio
+
+1. En la parte superior de nuestro Rstudio vamos a ver **Git**
+2. Vamos a hacer algún cambio en nuestro README.md
+3. Damos click en commit.
+4. Escribimos un mensaje útil
+5. Luego damos Push
+
+Nota: otra forma que tenemos para clonar un repo es descargar el zip. Recueden cuando trabajan en colaboración siempre hacer pull. 
+
+---
+class: inverse, middle, center
+
+# Proyectos colaborativos
+
+---
+# Proyectos colaborativos 
+- GitHub, Git y Rstudio nos permiten colaborar en nuestros trabajos y/o repositorios.
+
+- Para esto, dentro del repositorio que queremos colaborar le damos *'Settings'* y luego *'Collaborators'* y ponemos el nombre de usuario con quién queremos colaborar y luego lo agregamos.
+
+- El colaborador recibirá un correo de invitación, aceptamos y procedemos a clonar el repositorio para poder introducir cambios y/o actualizaciones.
+
+---
+### Vamos a configuración
+
+&lt;img src="images/img5.png" width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+### Vamos a colaboradores
+
+&lt;img src="images/img6.png" width="85%" style="display: block; margin: auto;" /&gt;
+
+
+---
+### Invitación a colaborar
+
+&lt;img src="images/img7.png" width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+# Otros conceptos...
+*fork*: es copiar un repositorio de la cuenta de un usuario cuando no tiene acceso de escritura. Así que puedes simplemente copiarlo y modificarlo bajo tu propia cuenta.
+
+*merge*:  ahora el usuario que es el propietario de esos códigos, si encuentra que sus cambios son relevantes, puede fusionar los cambios encontrados en su repositorio con el repositorio original, simplemente haciendo clic en el botón.
+
+*Nota: Si el propietario acepta ssus cambios, obtiene su crédito en el sitio original y aparece en su perfil de usuario. Por lo tanto, mientras más personas y proyectos haya en GitHub mejor. Esto anima a los jóvenes desarrolladores a crecer.*
+
+
+---
+class: center, middle
+
+# ¡Gracias!
+Las diapositivas se construyeron con el paquete de R [**xaringan**](https://github.com/yihui/xaringan).
+
+---
+
+# Referencias
+
+- https://happygitwithr.com/index.html
+
+- https://github.com/bryan2811/Curso-de-Git-y-Github-Platzi
+
+- https://www.edureka.co/blog/git-vs-github/
+
+- https://comunidadbioinfo.github.io/cdsb2022/control-de-versiones-con-github-y-rstudio.html
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
