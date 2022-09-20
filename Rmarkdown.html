@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>R markdown</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Ph D. Stephanie Hereira Pacheco" />
+    <meta name="date" content="2022-09-20" />
+    <script src="Rmarkdown_files/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# R markdown
+]
+.author[
+### Ph D. Stephanie Hereira Pacheco
+]
+.institute[
+### CTBC-UATx
+]
+.date[
+### 2022-09-20
+]
+
+---
+
+
+class: inverse, center, middle
+background-image: url(https://rubenfcasal.github.io/bookdown_intro/images/rmarkdown.png)
+background-size: contain
+
+
+
+
+
+
+---
+class: inverse, center, middle
+
+# ¿Qué necesitaremos para la clase de hoy?
+
+---
+class:  middle
+
+## **Para la clase de hoy vamos a necesitar:**
+
+- ####R y Rstudio (últimas versiones recomendable)
+- ####Rmarkdown (paquete instalado):
+
+```r
+# Instalar de CRAN
+install.packages('rmarkdown')
+
+# o la versión en desarrollo de Github
+if (!requireNamespace("devtools"))
+  install.packages('devtools')
+devtools::install_github('rstudio/rmarkdown')
+```
+
+
+- ####Tener instalado LaTeX o tinytex:
+
+
+```r
+install.packages('tinytex')
+tinytex::install_tinytex()  # install TinyTeX
+```
+
+---
+class: inverse, center, middle
+
+# ¿Qué es y para qué sirve Rmarkdown?
+
+
+---
+
+# ¿Qué es Rmarkdown? 
+
+- Es un paquete creado en 2014. 
+
+- Durante los últimos ha evolucionado hasta convertirse en un ecosistema relativamente completo para la creación de documentos.
+
+- Rmarkdown se basa en el lenguaje markdown que sirve para convertir texto plano a formato HTML. Este tipo de archivo de archivo esta disponible en RStudio, y esto nos permite integrar código con texto con formato.
+---
+class: inverse, center, middle
+
+# ¿Qué podemos hacer en Rmarkdown?
+
+
+---
+# Cosas que podemos hacer en Rmarkdown: 
+
+&gt; 1. Compilar un solo documento R Markdown en un informe en diferentes formatos, como PDF, HTML o Word.
+
+&gt; 2. Crear cuadernos en los que pueda ejecutar directamente fragmentos de código de forma interactiva.
+
+&gt; 3. Crear diapositivas para presentaciones (HTML5, LaTeX Beamer o PowerPoint).
+
+&gt; 4. Crar aplicaciones interactivas basadas en Shiny.
+
+&gt; 5. Escribir artículos de revistas, capítulos de libros y tesis. 
+
+&gt; 6. Generar sitios web y blogs.
+
+
+---
+# ¿Cómo es el proceso de generación de documentos?
+
+&lt;img src="https://bookdown.org/yihui/rmarkdown-cookbook/images/workflow.png" width="600" height="300" style="display: block; margin: auto;" /&gt;
+
+**RMD** es nuestro código editable de Rmarkdown que se teje con `knitr`  convirtiendose en un archivo **MD** de lenguaje markdown para luego ser compilado por `pandoc` en cualquier arhchivo de salida que le indiquemos
+
+
+---
+#Algunos usos...
+
+- Diapositivas personalizadas ([**xaringan**](https://github.com/yihui/xaringan), [**prettydoc**](https://github.com/yixuan/prettydoc))
+
+- Curriculum vitae ([**vitae**](https://github.com/mitchelloharawild/vitae))
+
+- Artículos y documentos académicos ([**rticles**](https://github.com/rstudio/rticles))
+
+- Libros ([**bookdown**](https://github.com/rstudio/bookdown))
+
+- Blogs ([**blogdown**](https://github.com/rstudio/blogdown))
+
+- Documentos automatizados/[**certificados**](https://www.andreashandel.com/posts/certificate-generation/)
+
+- Otras cosas más ([**stevetemplates**](https://github.com/svmiller/stevetemplates), [**pagedown**](https://github.com/rstudio/pagedown))
+
+- Websites ([**postcards**](https://github.com/seankross/postcards))
+
+
+---
+class: inverse, center, middle
+
+# ¡Manos a la obra!
+
+---
+#Generar un archivo nuevo Rmarkdown
+
+Primero vamos a abrir nuestro arhchivo nuevo:
+
+&gt; Vamos a `File` &gt; `New File` &gt; `R Markdown...`
+
+Luego, vamos a escoger el tipo:
+&gt; - Documento (html, pdf, word)
+&gt; - Presentation (html, pdf, word, powerpoint)
+&gt; - Shiny (Document, presentation)
+&gt; - From Template (varios, dependiendo del paquete)
+
+Vamos a escoger realizar un Documento html y probemos dar Knit. Listo!
+
+---
+# Estructura de un archivo de Rmarkdown
+Los metadatos YAML se procesan en muchas etapas del proceso de renderizado y pueden influir en el documento final de muchas maneras diferentes. Se coloca al principio del documento y lo lee Pandoc, rmarkdown y knitr.
+
+Un encabezado YAML típico tiene este aspecto y contiene metadatos básicos sobre el documento y las instrucciones de representación:
+
+```r
+---
+title: My R Markdown Report
+author: Steph
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+```
+
+En este caso, Pandoc procesa los campos de título y autor para establecer los valores de las variables de la plantilla.
+---
+# Ejemplo de presentación con más formato
+
+```r
+---
+title: "Ecología de comunidades en R- clase 1"
+author: | 
+  | Ph D.Stephanie Hereira-Pacheco 
+  | CTBC
+  | UATx
+date: "`14 - 03 - 2022`"
+output: 
+ beamer_presentation:
+    theme: "Boadilla"
+    colortheme: "beaver"
+    fonttheme: "structurebold"
+fontsize:  9 pt
+---
+```
+
+[Galerías](https://deic.uab.cat/~iblanes/beamer_gallery/),
+[Templates](https://hartwork.org/beamer-theme-matrix/).
+
+---
+# Narrativa
+- Los elementos textuales narrativos se parecerán un poco a escribir en un editor de texto. 
+
+- Encabezados o headers: dan estructura a todo nuestro documento, ya que rmarkdown convierte el .md a nuestro formato de salida final. 
+
+.pull-left[
+
+```r
+# Primer nivel
+
+## Segundo nivel
+
+### Tercer nivel
+```
+
+]
+
+.pull-right[
+# Primer nivel
+
+## Segundo nivel
+
+### Tercer nivel
+
+]
+
+---
+# Sintáxis 
+
+.pull-left[
+
+```r
+  Lista principal
+  + manzanas
+    - amarilla
+    - roja
+
+Otra lista
+1. *Casa*
+2. **Salón**
+&gt; ***Lista o cita en bloque*** 
+&gt; 1. Esta es una lista dentro de una cita
+```
+
+]
+
+.pull-right[
+  Lista principal
+  + manzanas
+    - amarilla
+    - roja
+
+Otra lista
+1. *Casa*
+2. **Salón**
+&gt; ***Lista o cita en bloque*** 
+&gt; 1. Esta es una lista dentro de una cita
+
+]
+
+---
+# Uso del modo visual 
+
+&lt;img src="images/visual1.png" width="80%" style="display: block; margin: auto;" /&gt;
+---
+
+# Uso del modo visual 
+
+&lt;img src="images/visual2.png" width="80%" style="display: block; margin: auto;" /&gt;
+---
+# Chunks
+.pull-left[
+- En R y Rmarkdown podemos hacer chunks para varios lenguajes. Por ejemplo para R, o para bash, python, sql, etc. 
+
+- Podemos abrir un nuevo chunk de R manualmente o usar el comando : 
+`Ctrl` + `Alt` + I
+]
+.pull-right[
+&lt;img src="images/visual3.png" width="2560" style="display: block; margin: auto;" /&gt;
+]
+---
+# Chunks de R
+
+Hay una variedad de opciones quen afectan la forma en que los fragmentos de código son tratado
+
+- Usa `echo=FALSE` para evitar que se muestre el código en sí.
+- Usa `results="hide"` para evitar que se impriman los resultados.
+- Usa `eval=FALSE` para tener el código mostrado pero no evaluado.
+- Usa `warning=FALSE` y `message=FALSE` para ocultar cualquier advertencia o mensajes producidos
+- Usa `fig.height`, `fig.width` y `fig.align` para controlar el tamaño de las figuras    producidas y como se alinean.
+Entonces podrías escribir:
+
+
+---
+# Diapositivas con xaringan
+Este es un paquete adicional, que puede instalarse así:
+
+
+```r
+remotes::install_github('yihui/xaringan')
+```
+
+[Manuales](https://github.com/yihui/xaringan/wiki) y [documentación](https://github.com/yihui/xaringan).
+
+Ya instalado podemos acceder al formato dando:
+`File` &gt; `New File` &gt; `Rmarkdown` &gt; `From template` &gt; `Ninja presentation`
+
+Además del formato podemos ver los cambios al instante, con el código:
+
+
+```r
+xaringan::infinite_moon_reader()
+```
+
+---
+# Formato de xaringan
+
+```{}
+library(xaringanthemer)
+style_mono_accent(
+  base_color = "#7B241C",
+  header_font_google = google_font("Plex Mono Semi Bold"),
+  text_font_google= google_font("Plex Serif Regular", "400", "400i"),
+  text_font_size = "1.5rem",
+  code_font_google   = google_font("Fira Mono")
+)
+```
+
+
+```r
+install.packages("xaringanthemer")
+#ó
+remotes::install_github("gadenbuie/xaringanthemer")
+```
+[Manual](https://pkg.garrickadenbuie.com/xaringanthemer/articles/xaringanthemer.html)
+
+---
+# Haciendo de mi Rmarkdown una página web
+- Para este paso debemos primero crear un repositorio en Github ligado a nuestra sesión (como lo vimos la clase anterior).
+
+- Ya generado nuestro documento, cv, libro, etc. Podemos darle `pull` &gt; `commit` &gt; `push` y subir nuestro documento.
+
+- Luego configuramos nuestro Github para hacerlo página entrando al respositorio donde está nuestro documento y vamos a `Settings` &gt; `Pages` y aquí cambiamos el branch para que salga `main` y `root` y listo! esperamos un poco y ya podemos visualizar nuestra página.
+
+   https://steph0522.github.io/mi_presentacion/presentacion.html
+
+
+
+---
+class: center, middle
+
+# ¡Gracias!
+Las diapositivas se construyeron con el paquete de R [**xaringan**](https://github.com/yihui/xaringan).
+
+---
+
+# Referencias
+
+- https://bookdown.org/yihui/rmarkdown/
+
+- https://bookdown.org/yihui/rmarkdown-cookbook/
+
+- https://swcarpentry.github.io/r-novice-gapminder-es/15-knitr-markdown/
+
+- https://comunidadbioinfo.github.io/cdsb2022/generaci%C3%B3n-de-reportes-con-r-markdown..html
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
