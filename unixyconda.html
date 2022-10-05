@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Básicos UNIX y conda</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Ph D. Stephanie Hereira Pacheco" />
+    <meta name="date" content="2022-10-05" />
+    <script src="unixyconda_files/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Básicos UNIX y conda
+]
+.author[
+### Ph D. Stephanie Hereira Pacheco
+]
+.institute[
+### CTBC-UATx
+]
+.date[
+### 2022-10-05
+]
+
+---
+
+
+
+
+class: inverse, center, middle 
+
+# ¿Qué necesitaremos para la clase de hoy? 
+
+---
+class:  middle
+
+## **Para la clase de hoy vamos a necesitar:**
+
+- ####Tener acceso a una terminal, los usuarios de linux y macOS ya cuentan con ella, para los usuarios de windows preferiblemente VirtualBox.
+
+- ####Tener instalado conda, para esto depende de tu sistema operativo: 
+
+
+```bash
+#macOS
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -O ~/miniconda.sh
+bash ~/miniconda.sh -b -p $HOME/miniconda
+
+#Linux
+bash Miniconda3-latest-Linux-x86_64.sh
+bash Anaconda-latest-Linux-x86_64.sh
+
+```
+
+---
+class: inverse, center, middle
+
+# ¿Qué es UNIX? - Generalidades
+
+
+---
+
+# ¿Qué es UNIX?
+
+- Es un sistema operativo desarrollado por Ken Thompson y Dennis Ritchie en 1969.
+
+-  Fue desarrollado con el objetivo de escribir programas para una sola tarea y que colaboren entre sí además de manejar un flujo de texto que pueda funcionar en una interfaz universal.
+
+- Hasta 1991 era reservado para las supercomputadoras. Luego se implementó un equivalente de libre acceso para Linux (GNU/Linux) y otro basado en él que fue el de macOS. 
+
+- Algunos conceptos:
+
+&gt; - Kernel:  núcleo o corazón del sistema operativo, y se encarga principalmente de mediar entre los procesos de usuario y el hardware disponible en la máquina, es decir, concede el acceso al hardware, al software que lo solicite, de una manera segura. Encargado de controlar el acceso a todos los componentes. 
+
+&gt; - Shell: Es la interfaz para que el usuario pueda interaccionar con los diferentes elementos y poder hacer uso de una computadora y sus programas. Encargo de gestionar los comandos y sus respuestas (Intérprete de comandos): Bourn shell (sh), bash shell (shell) y Z shell (zsh). 
+
+---
+class: inverse, center, middle
+
+# Sistemas de archivos, terminal y códigos.
+
+---
+# Sistemas de archivos 
+
+- UNIX propone una organización de datos vía archivos y **directorios**. 
+
+- La raíz del sistema es "/" llamado "root". Cualquier directorio o archivo será refernciado a partir de esta raíz.
+
+- Varios ejemplos de directorios comunes son: 
+&gt;- `/etc` que contiene los archivos referentes a las configuraciones de los programas
+&gt;- `/bin` y `/usr/bin/` contienen los archivos binarios de uso común.
+&gt;- `/home` que contiene los directorios del usuario.
+&gt;- `./` ó `.` la ubicación de nuestro directorio actual.
+&gt;- `../` la ubicación del directorio anterior.
+&gt;- `../../` la ubicación del directorio dos ubicaciones anteriores.
+
+- Si queremos saber donde estamos usamos el comando `pwd`
+
+- Bash shell es amigable, con las flechas permite ver códigos anteriores y con TAB autocompletar códigos, además de permitir trabajos de fondo. 
+
+
+
+
+---
+# Terminal
+
+&lt;img src="https://www.softzone.es/app/uploads-softzone.es/2020/03/Terminal-Ubuntu.jpg" width="600" height="300" style="display: block; margin: auto;" /&gt;
+
+- La Terminal es una consola que nos permite ejecutar todo tipo de **códigos** mediante **comandos** (secuencias de palabras o instrucciones). 
+
+- Nos muestra en qué directorio nos encontramos y si estamos en un ambiente de conda o no (Esto lo veremos más adelante con mpas detalle).
+
+---
+
+# Terminal
+- **`PATH`** es una variable del entorno que almacena una lista de directorios en los cuales Linux debe buscar un comando para poder ejecutarlo. 
+
+- Una variable de entorno es una variable que es definida en todo el entorno de ejecución de la shell.
+
+&lt;img src="https://linuxhint.com/wp-content/uploads/2021/06/change-path-Linux-terminal-02.png" width="600" height="300" style="display: block; margin: auto;" /&gt;
+
+- Esto es muy importante porque a veces no sabemos que debemos colocar los programas en el `PATH` para poder ejecutarlos o ubicarnos en el directorio para poder correrlos. 
+---
+
+# Terminal - Cambiando el PATH
+
+
+.pull-left[
+##Cambio temporal
+
+```bash
+export PATH="$HOME/bin:$PATH"
+
+```
+]
+
+
+.pull-right[
+##Cambio permanente
+
+```bash
+nano ~/.bashrc
+#colocamos la línea dentro del archivo
+export PATH="$HOME/bin:$PATH"
+```
+]
+---
+#Comandos
+
+Los comandos se ejecutan de la siguiente manera:
+
+```bash
+comando [opciones] [argumentos]
+```
+
+&gt;- **Opciones**:  Cambia el funcionamiento orifinal del comando.
+&gt;- **Argumento**:  Información que necesita el comando para realizar su tarea.
+
+Corramos el siguiente comando:
+
+
+```bash
+ls -l
+```
+
+Ahora este: 
+
+
+```bash
+ls --help
+man ls
+```
+En caso de pánico podemos usar `Ctrl` + C
+
+---
+# Otros comandos...
+
+# cd  
+Este comando nos permite movernos entre directorios "change directory".
+
+
+```bash
+cd ../ #Referencia relativa
+```
+
+
+```bash
+cd /home/usr/Documents #referencia absoluta
+```
+
+
+```bash
+cd #regresamos al HOME
+```
+---
+# Otros comandos...
+
+# ls, mkdir, rmdir
+
+
+```bash
+ls  #lista el contenido de nuestro directorio
+```
+
+
+```bash
+mkdir Nuevo_directorio #crear un directorio
+```
+
+
+```bash
+rmdir Nuevo_directorio #crear un directorio
+```
+
+
+```bash
+rm -r  Nuevo_directorio #crear un directorio
+```
+---
+# Otros comandos...
+
+|COMANDO | FUNCIÓN     | 
+|--------|-------------|
+| `cp`     |Hacer una copia del directorio o archivo   | 
+| `mv`     |Mover un directorio o archivo / renombrar | 
+| `cat`    | Visualizar o listar e imprimir elementos de archivo   | 
+| `zcat`   | Visualizar o listar e imprimir de archivo de extensión .gz| 
+| `less`   | Visualizar arhivo de a poco   | 
+| `head`   | Visualizar las primeras 10 líneas   | 
+| `tail`   | Visualizar las últimas 10 líneas    | 
+| `wc`     | Cuenta palabras   | 
+| `sudo`   | Permite correr programas con permisos de superusario | 
+| `df`     | Espacio de disco en el sistema | 
+| `du`     | Espacio que ocupa un archivo en el sistema | 
+| `unique`     | Elimina líneas sucesivas repetidas | 
+
+
+---
+# Otros comandos...
+
+|COMANDO      | FUNCIÓN     | 
+|-------------------|-------|
+| `history`     | Despliega el historial de comandos | 
+| `ln -s`       |Crear una liga simbólica   | 
+| `clean`       | Borra comandos en tu ventana| 
+| `wget`        | Descagar archivos de internet| 
+| `ps/ps aux`   | Procesos activos del sistema | 
+| `kill`        | Matar un proceso activo| 
+| `gzip/gunzip` | Comprimir o descomprimir un archivo .gz | 
+| `tar`         | Comprimir y descomprimir archivos de extensión .tar | 
+| `grep/awk`        | Buscar un patrón dado en un archivo | 
+| `find -name`        | Buscar un archivo en mis directorios| 
+| `sort`        | Ordena alfabéticamente líneas de un archivo| 
+| `cut`        | Suprime partes de líneas de un archivo| 
+
+
+
+
+
+---
+# Permisos de archivo
+
+Al poner este comando en nuestra terminal podemos ver :
+.pull-left[
+
+```bash
+ls -l  
+```
+
+&lt;img src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Ls_command_result.png" width="600" height="300" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+ Un archivo puede tener derechos de:
+  - lectura (r)
+  - escritura (w)
+ 
+ Para un directorio puede tener derechos de:
+  - lectura (r)
+  - escritura (w)
+  - entrada (x) / ejecución (programas)
+ 
+]
+
+---
+#Cambiando permisos : chmod
+.pull-left[
+- Añadir permisos de ejecución para el usuario
+
+```bash
+chmod u+x 
+```
+- Añadir permisos de ejecución para el grupo y demás
+
+```bash
+chmod g+w
+chmod o-x
+```
+- Añadir permiso a programa de ejecutarse
+
+```bash
+chmod +x script.sh
+```
+]
+.pull-right[
+- Añadir permisos de lectura total y totales
+
+```bash
+chmod 755 archivo
+chmod 777 archivo
+```
+
+
+
+```bash
+0 = --- = sin acceso
+1 = --x = ejecución
+2 = -w- = escritura
+3 = -wx = escritura y ejecución
+4 = r-- = lectura
+5 = r-x = lectura y ejecución
+6 = rw- = lectura y escritura
+7 = rwx = lectura, escritura y ejecución
+```
+]
+
+---
+# WILCARD *
+
+El wildcard o comodín  es el más conocido y útil, representa cualquier combinación posible, es decir, **todo**. 
+ Por ejemplo si ponemos:
+ 
+
+```bash
+cp * /home/
+```
+Estamos indicando que queremos copiar todos los elementos del directorio donde nos encontramos para el HOME. 
+
+---
+# REDIRECCIÓN &gt; Y &gt;&gt;
+
+Los caracteres &gt; y &gt;&gt; permiten redirigir la salida estándar. Podemos redirigir la saida a un archivo de la siguiente manera:
+
+
+```bash
+ls &gt; mi_lista.txt
+```
+
+Permite hacer un nuevo archivo o reescribir uno existente:
+
+
+```bash
+ls &gt;&gt; mi_lista.txt
+```
+
+
+---
+# USO DE PIPE | 
+
+- El concepto Pipe procede de la palabra inglesa **“pipeline”**, cuya traducción es **“tubería”**. 
+
+- En informática, un pipe es un flujo de datos que circula entre dos procesos que, o bien están estrechamente vinculados, o no tienen un origen común. Esto quiere decir que el resultado arrojado por un programa servirá como entrada para otro programa.
+
+
+```bash
+Comando-1 | Comando-2 | …| Comando-N
+```
+
+Ejemplo:
+
+
+```bash
+cat archivo.txt |wc -l
+```
+
+
+```bash
+grep "^&gt;" dna-sequences.fasta | wc -l
+```
+
+
+---
+class: inverse, center, middle
+
+background-image: url(https://upload.wikimedia.org/wikipedia/commons/e/ea/Conda_logo.svg)
+background-size: contain
+
+---
+# ¿Qué es conda?
+De acuerdo a la definición oficial:
+
+&gt;- conda: A package manager helps you find and install packages.
+&gt;- conda: Un administrador de paquetes que ayuda a encontrar e instalar paquetes.
+
+- Se obtiene mediante Anaconda o Miniconda.
+
+- La instalación dependerá del sistema operativo a utilizar. 
+- Aunque conda está disponible para Windows, macOS y Linux, no todos los paquetes disponibles para bioinformática son compatibles entre los tres sistemas, siendo la prioridad de paquetes Linux &gt; macOS y en algunos casos, al final, Windows.
+- Funciona para casi todos los lenguajes.
+- originalmente orientado a usuarios de Python
+
+---
+class: inverse, center, middle
+background-image: url(https://github.com/Steph0522/Taller_R_Bioinformatica/blob/main/images/conda.jpeg?raw=true)
+background-size: contain
+
+---
+# ¿Por qué Conda?
+- Es fácil de usar
+
+- Es multiplataforma
+
+- Se lleva bien con Python
+
+- Maneja entornos o ambientes
+
+## Entornos virtuales o ambientes
+- Es una ubicación del PATH, aislada del sistema, que previene conflictos de versiones.
+
+---
+
+# Conda
+
+### - Instalando conda
+
+```bash
+bash Miniconda3-latest-Linux-x86_64.sh
+```
+
+### - Revisando versión
+
+```bash
+conda info
+```
+
+### - Ambientes creados 
+
+```bash
+conda env list
+```
+
+---
+# Conda
+
+### - Agregar canales
+
+```bash
+conda config --add channels r
+conda config --add channels conda-forge
+conda config --add channels bioconda
+```
+
+### - Creando entorno
+
+```bash
+conda create -n test3.6 python=3.6 pandas=1.0
+```
+
+### Removiendo un entorno
+
+```bash
+conda remove -n qiime2 --all
+```
+
+---
+# Conda 
+### mamba
+
+```bash
+conda install -yc conda-forge mamba
+
+mamba create -y -n testpy3.6 python=3.6 pandas=1.0
+
+mamba create -y -n testR3.6 r-base=3.6
+
+mamba create -n picrust2 -c bioconda -c conda-forge picrust2=2.5.0
+```
+
+---
+# Conda 
+### - Activar un ambiente o conda
+
+
+```bash
+conda activate qiime2
+```
+
+### - Desactivar un ambiente o conda
+
+
+```bash
+conda deactivate qiime2
+```
+
+---
+#Referencias
+
+- https://mamba.readthedocs.io/en/latest/user_guide/mamba.html
+
+- https://comunidadbioinfo.github.io/cdsb2022/introducci%C3%B3n-a-conda..html
+
+- https://omicstutorials.com/getting-started-in-linux-bioinformatics/
+
+- https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
