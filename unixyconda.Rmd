@@ -16,7 +16,7 @@ style_mono_accent(base_color = "#23395b")
 ```
 
 
-class: inverse, center, middle 
+class: inverse, center, middle  
 
 # ¿Qué necesitaremos para la clase de hoy? 
 
