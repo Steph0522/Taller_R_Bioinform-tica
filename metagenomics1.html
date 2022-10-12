@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Básicos Metagenómica</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Ph D. Stephanie Hereira Pacheco" />
+    <meta name="date" content="2022-10-12" />
+    <script src="metagenomics1_files/header-attrs-2.14/header-attrs.js"></script>
+    <script src="metagenomics1_files/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="metagenomics1_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="metagenomics1_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Básicos Metagenómica
+]
+.author[
+### Ph D. Stephanie Hereira Pacheco
+]
+.institute[
+### CTBC-UATx
+]
+.date[
+### 2022-10-12
+]
+
+---
+
+
+
+class: inverse, center, middle
+
+# Introducción - Generalidades
+
+---
+
+# Introducción
+
+- El marco para el análisis de metagenómica y de amplicones se estableció en la última década (Caporaso et al., 2010). 
+
+- Sin embargo, los métodos y herramientas de análisis de microbiomas han evolucionado rápidamente en los últimos años (Knight et al., 2018).
+
+- El desarrollo de HTS (secuenciación de alto redimiento/ high throughput sequencing) y métodos de análisis han brindado nuevos conocimientos sobre las estructuras y funciones del microbioma (Jiang et al., 2019). 
+
+- Pero, estos nuevos desarrollos han hecho que sea un desafío para los investigadores, especialmente aquellos sin experiencia en bioinformática, elegir software y *"pipelines"* adecuados. 
+
+---
+background-image: url(https://github.com/Steph0522/Taller_R_Bioinformatica/blob/main/images/meta1.jpg?raw=true)
+background-size: contain
+
+--
+background-image: url(https://github.com/Steph0522/Taller_R_Bioinformatica/blob/main/images/meta2.jpg?raw=true)
+
+
+background-size: contain
+
+---
+background-image: url(https://github.com/Steph0522/Taller_R_Bioinformatica/blob/main/images/meta3.jpg?raw=true)
+
+
+background-size: contain
+
+---
+class: inverse, center, middle
+
+# Análisis de metagenomas
+
+---
+class: inverse, center, middle
+
+# Control de calidad
+
+---
+# Control de calidad
+
+
+- [***FastQC***](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
+
+- [***Trimmomatic***](http://www.usadellab.org/cms/?page=trimmomatic)
+
+- [*Sickle*](https://github.com/najoshi/sickle)
+
+- [*fastp*](https://github.com/najoshi/sickle)
+
+---
+#FastQC
+- FastQC tiene como objetivo proporcionar una forma sencilla de realizar algunas comprobaciones de control de calidad en los datos de secuencia sin procesar que provienen de procesos de secuenciación de alto rendimiento. 
+
+- Se pueden importar arhivos BAM, SAM o FastQ (cualquier variante)
+
+- Nos da información de nuestras secuencias y algunas gráficas
+
+- Se puede ejecutar por CLI o visualizador
+
+---
+# FastQC
+.pull-left[
+#### CLI (línea de comando o terminal)
+
+```bash
+fastqc NS.1601.004.IDT_i7_121---IDT_i5_121.123_R2.fastq.gz
+```
+
+&lt;img src="images/fq2.1.jpg" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+]
+.pull-right[
+#### Visualizador
+&lt;img src="images/fq1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+[*Resultados*](https://steph0522.github.io/Taller_R_Bioinformatica/NS.1601.004.IDT_i7_121---IDT_i5_121.123_R2_fastqc.html)
+]
+
+---
+# [BBmap](https://jgi.doe.gov/data-and-tools/software-tools/bbtools/bb-tools-user-guide/bbmap-guide/)
+Hace parte de BBTools que es un conjunto de herramientas bioinformáticas rápidas y multiproceso  de código abierto diseñadas para el análisis de datos de secuencias de ADN y ARN (**bbmap, bbmerge, bbduk, reformat**) (Viene en QIIME).
+
+
+
+```bash
+#hg19 ahora hg38
+ln -s /ruta/ref_humano .
+```
+
+
+
+```bash
+nohup bbmap.sh minid=0.99  minhits=2 bwr=0.16 bw=12 in=../121_1.fastq outu=121_1_unmap.fastq outm=121_1_map.fastq
+```
+`minid` = identidad de alineación máxima (0.76), 
+`minhits` = Número mínimo de coincidencias iniciales requeridas,
+`bwr` = relación de ancho de banda,
+`bw` = ancho de banda,
+`in` y `out` = archivos de entrada y salida
+
+---
+# [Trimmomatic](http://www.usadellab.org/cms/?page=trimmomatic)
+
+
+```bash
+nohup java -jar trimmomatic-0.39.jar PE -phred33 121_1_unmap.fastq 121_2_unmap.fastq 121_1_unmap_paired.fastq 121_1_unmap_unpaired.fastq 121_2_unmap_paired.fastq 121_2_unmap_unpaired.fastq ILLUMINACLIP:~/Trimmomatic-0.39/adapters/NexteraPE-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:20 MINLEN:30
+```
+- PE o SE = pareadas o single
+- Remueve adaptadores (`ILLUMINACLIP:NexteraPE-PE.fa:2:30:10`)
+- Elimina las bases principales de baja calidad o N (debajo de 3) (`LEADING:3`)
+- Remove Eliminar las bases finales de baja calidad o N (por debajo de la calidad 3) (`TRAILING:3`) 
+- Escanea la lectura con una ventana de 4 bases, cortando cuando la calidad promedio por base cae por debajo de 20 (`SLIDINGWINDOW:4:20`)
+- Elimina lecturas dejabjo de 30 pb (`MINLEN:30`)
+
+[***Resultados***]( https://steph0522.github.io/Taller_R_Bioinformatica/121_R1_unmap_paired_fastqc.html)
+
+---
+class: inverse, center, middle
+
+# Ensamble
+
+---
+
+# [MEGAHIT](https://github.com/voutcn/megahit)
+
+- MEGAHIT es un ensamblador NGS ultrarrápido y eficiente en memoria (en conda).
+
+- Está optimizado para metagenomas, pero también funciona bien en el ensamblaje genérico de un solo genoma y el ensamblaje de una sola célula.
+
+
+```bash
+megahit -1 121_1_unmap_paired.fastq -2 121_2_unmap_paired.fastq -r 121_1_unmap_unpaired.fastq,121_2_unmap_unpaired.fastq --min-contig-len 1000 --presets meta-large -o 121_megahit_1000_pres
+```
+
+- `1`, `2` y `r` = single, forward map reads and unmap reads. 
+- `--min-contig-len` = minimum length of contigs to output [200],
+- `--presets` = anula parámetros; **meta-large**: '--k-min 27 --k-max 127 --k-step 10' (metagenomas grandes y complejos, como el suelo).
+
+**Otros** : [*Velvet*](https://www.ridom.de/u/Velvet_Assembler.html), [*metaSPAdes*](https://cab.spbu.ru/software/spades/), [*metaWRAP*](https://github.com/bxlab/metaWRAP)
+---
+class: inverse, center, middle
+
+# Anotación taxonómica
+
+---
+- Algunos programas: 
+
+&gt; - [*DIAMOND*](https://www.wsi.uni-tuebingen.de/lehrstuehle/algorithms-in-bioinformatics/software/diamond/) : es un programa para encontrar homólogos de proteínas y secuencias de ADN en una base de datos de referencia. Corre ser hasta 20 000 veces más rápido que Blast, especialmente cuando se trata de lecturas cortas como las producidas por la secuenciación.
+
+&gt; - [*MEGAN*](https://www.wsi.uni-tuebingen.de/lehrstuehle/algorithms-in-bioinformatics/software/megan6/) : Conforma un conjunto de herramientas. El programa tiene un algoritmo de asignación de LCA (Lowest Common Ancestor). Interfaz gráfica y de línea de comandos. 
+
+&gt; - [*MetaPhlAn3*](https://huttenhower.sph.harvard.edu/metaphlan/) : es una herramienta computacional para perfilar la composición de comunidades microbianas, se basa en genes marcadores específicos de clado únicos identificados a partir de ~17000 genomas de referencia (~13500 bacterianos y arqueales, ~3500 virales y ~110 eucariotas). 
+
+[Artículo1](https://www.cell.com/action/showPdf?pii=S0092-8674%2819%2930775-5) y [Artículo2](https://www.biorxiv.org/content/10.1101/2022.04.27.489753v1.full.pdf), [FindFungi](https://github.com/GiantSpaceRobot/FindFungi), [MiCoP](https://github.com/smangul1/MiCoP), [VirSorter2](https://github.com/jiarong/VirSorter2), [vConTACT2](https://bitbucket.org/MAVERICLab/vcontact2/wiki/Home), [VIBRANT](https://github.com/AnantharamanLab/VIBRANT).
+---
+#[Kraken2](https://github.com/DerrickWood/kraken2/wiki)
+
+- Kraken 2 realiza coincidencias k-mer exactas con secuencias dentro de la base de datos no redundante del NCBI y utiliza algoritmos del ancestro común más bajo (LCA) para realizar la clasificación taxonómica. Es de alta precisión y genera recuentos de lecturas para cada especie
+
+- [Bases de datos](https://benlangmead.github.io/aws-indexes/k2): Puedes contruir la base de datos de grupo de preferencia, además de usar las ya construidas. 
+
+
+```bash
+kraken2-build --standard --db standard_db
+```
+Esto descargará la información taxonómica del NCBI así como los genomas de referencias para bacterias, arqueas y virus  y construirá la base de datos.
+
+---
+#[Kraken2](https://github.com/DerrickWood/kraken2/wiki)
+Para un grupo particular: 
+
+```r
+kraken2-build --download-taxonomy --db bacterias
+```
+
+
+```r
+kraken2-build --download-library bacteria --db bacterias
+```
+
+
+```r
+kraken2-build --add-to-library chr1.fa --db bacterias
+```
+
+
+
+```r
+kraken2-build --build --db bacterias
+```
+---
+#[Kraken2](https://github.com/DerrickWood/kraken2/wiki)
+
+- **Contigs**:
+
+
+```r
+kraken2 --db /databases/ --threads 16 --report 121_kraken_contigs --output 121_contigs_out 121_megahit_1000_pres/final.contigs.fa
+```
+
+- **Reads**:
+
+
+```r
+kraken2 --db /databases/ --threads 16 --report 121_kraken_reads --output 121_reads_out 121_1_unmap_paired.fastq 121_2_unmap_paired.fastq 121_1_unmap_unpaired.fastq 121_2_unmap_unpaired.fastq
+```
+---
+#[Bracken](https://github.com/DerrickWood/kraken2/wiki) y [kraken-biom](https://github.com/smdabdoub/kraken-biom)
+
+- Bracken (Bayesian Reestimation of Abundance with KrakEN) es un método estadístico de alta precisión que calcula la abundancia de especies en secuencias de ADN de una muestra de metagenómica. 
+- Kraken clasifica las lecturas en la mejor ubicación coincidente en el árbol taxonómico, pero no estima la abundancia de especies. 
+
+
+```r
+est_abundance.py -i 121_kraken_reads  -k kraken2-DBs/
+standar/database100mers.kmer_distrib' -o 121_bracken_species -l S
+```
+
+
+
+```r
+kraken-biom 121_bracken_species,122_bracken_species -o table_bracken_stand.biom
+```
+
+
+```r
+kraken-biom * -o table_bracken_stand.biom
+```
+---
+class: inverse, center, middle
+
+# Anotación funcional
+---
+# Anotación funcional
+
+Un componente principal del análisis metagenómico es descubrir qué están haciendo realmente los organismos en su muestra. Básicamente es buscar secuencias conocidas que tienen una función asociada o pueden estar relacionadas con una serie de funciones. Algunos enfoques son:
+
+&gt;- Predicción de genes: con contigs. [MGRAST](https://www.mg-rast.org/) y [Prokka](https://github.com/tseemann/prokka).
+
+&gt;- Inferencia funcional asociada al gen marcador: muy útil para la metagenómica dirigida. Puede extrapolar la función si está presente un gen asociado. [MinPath](https://omics.informatics.indiana.edu/MinPath).
+&gt;- Análisis de genes marcadores: el enfoque más rápido y sencillo, busque sus lecturas en una base de datos de genes conocidos con función conocida. [HUMAnN2](https://huttenhower.sph.harvard.edu/humann2/), [MEGAN6](https://computomics.com/services/megan6.html) y [SUPER FOCUS](https://github.com/metageni/SUPER-FOCUS).
+
+---
+#Prokka
+Prokka es una herramienta de software para anotar genomas bacterianos, arqueales y virales rápidamente y producir archivos de salida que cumplan con los estándares.
+
+
+```r
+ln -s ../3.megahit/final.contigs.fa .
+```
+
+
+
+```r
+prokka --outdir prokka_out --prefix 121 --metagenome 
+```
+
+.gff	This is the master annotation in GFF3 format, containing both sequences and annotations. It can be viewed directly in Artemis or IGV.
+---
+# Prokka
+
+
+```bash
+egrep "eC_number=" 121.gff |cut -f9 | cut -f1,2 -d ';'| sed 's/ID=//g'| sed 's/;eC_number=/\t/g' &gt; ec_121
+```
+
+
+
+```bash
+do egrep "COG[0-9]{4}" $i |sed 's/ID=\(\w\+\).*\(COG[0-9]\+\).*/\1\t\2/g'| cut -f9,10 &gt; cog_121
+
+```
+
+# MinPath
+
+
+```bash
+python MinPath.py -any $ec_121 -map reference_db/kegg/ec.to.pwy  -report report_ec_121
+
+```
+
+
+```bash
+python MinPath.py -any $cog_121 -map reference_db/metacyc/ec.to.pwy  -report report_cog_121
+
+```
+---
+### Mapeando lecturas y cuantificando genes
+
+
+```bash
+ln -s ../121/121_contigs.fa
+```
+
+
+
+```bash
+do bowtie2-build 121_contigs.fa 121_contigs.fa
+```
+
+
+
+```bash
+bowtie2 -p 8 -x 121_contigs.fa -1 121_1_unmap_paired.fastq -2 121_2_unmap_paired.fastq -S 121.map.sam --threads 12
+```
+
+
+
+```bash
+conda activate qiime2-2021.2
+```
+
+
+```bash
+cd ../121/
+```
+
+
+```bash
+samtools sort -o 121.map.sorted.bam -O bam 121.map.sam
+```
+---
+### Mapeando lecturas y cuantificando genes
+
+
+
+```bash
+samtools index 121.map.sorted.bam
+```
+[htseq](https://htseq.readthedocs.io/en/master/install.html):
+
+```bash
+htseq-count  -t CDS -f bam  121.map.sorted.bam 121_prokka.gtf &gt; 121_counting
+```
+
+
+
+```bash
+cut -f4,5,9 12_1_prokka.gtf | sed 's/gene_id //g' | gawk '{print $3,$2-$1+1}' | tr ' ' '\t' &gt; 121.genelength
+```
+
+[funciones extras](https://github.com/EnvGen/metagenomics-workshop/tree/master/in-house):
+
+```bash
+tpm_table.py -n 12_1 -c 12_1_counting -i &lt;(echo -e "12_1\t100") -l 12_1.genelength &gt;121.tpm
+```
+
+---
+### Mapeando lecturas y cuantificando genes
+
+
+
+```bash
+genes.to.kronaTable.py -i   121.gff -m reference_db/cog/cat.hierarchy -n 121 -c ../../../12_1/12_1.tpm -o 121.krona.cog.table
+```
+
+
+
+```bash
+pythongenes.to.kronaTable.py -i 121.gff -m reference_db/kegg/pwy.hierarchy -n 12_1 -c ../../../12_1/12_1.tpm -o 121.krona.keg.table
+```
+---
+#Referencias
+
+- https://metagenomics-workshop.readthedocs.io/en/latest/index.html
+
+- https://link.springer.com/content/pdf/10.1007/s13238-020-00724-8.pdf
+
+- https://learn.gencore.bio.nyu.edu/metgenomics/shotgun-metagenomics/functional-analysis/
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
