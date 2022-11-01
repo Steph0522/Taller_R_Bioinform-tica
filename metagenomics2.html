@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Básicos Metagenómica</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Ph D. Stephanie Hereira Pacheco" />
+    <meta name="date" content="2022-11-01" />
+    <script src="metagenomics2_files/header-attrs-2.14/header-attrs.js"></script>
+    <script src="metagenomics2_files/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="metagenomics2_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="metagenomics2_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Básicos Metagenómica
+]
+.author[
+### Ph D. Stephanie Hereira Pacheco
+]
+.institute[
+### CTBC-UATx
+]
+.date[
+### 2022-11-01
+]
+
+---
+
+
+
+
+class: inverse, center, middle
+
+# Introducción - Generalidades
+
+---
+
+# Introducción
+
+- La secuenciación metagenómica "shotgun" tiene como objetivo obtener todo el ADN accesiblede una comunidad mixta que permite la obtención de perfiles taxonómicos y funcionales. 
+
+- Recientemente, la recuperación de "genomas" a partir de metagenomas se ha convertido en un enfoque muy poderoso en ecología microbiana dándonos acceso genómico a poblaciones microbianas no cultivables.
+
+- Sin embargo, es importante entender que incluso los genomas de más alta calidad recuperados de un metagenoma a menudo no son los mismos que los de un genoma aislado. Es por eso que la comunidad ha comenzado a referirse a ellos como genomas ensamblados de metagenomas o MAGs. 
+
+
+
+---
+background-image: url(https://github.com/Steph0522/Taller_R_Bioinformatica/blob/main/images/meta3.jpg?raw=true)
+
+
+background-size: contain
+--
+background-image: url(https://github.com/Steph0522/Taller_R_Bioinformatica/blob/main/images/meta52.jpg?raw=true)
+
+
+background-size: contain 
+
+---
+background-image: url(https://raw.githubusercontent.com/Steph0522/Taller_R_Bioinformatica/main/images/meta52.jpg)
+
+
+background-size: contain
+
+---
+class: inverse, center, middle
+
+# Coensamblaje
+
+---
+
+# Coensamblaje
+
+***“Coensamblaje”*** se refiere a realizar un ensamblaje en el que los archivos de entrada se leerían de varias muestras. 
+
+Los tres principales beneficios del coensamblaje incluyen:
+
+&gt;**1. Mayor profundidad de lectura**: esto puede permitirle tener un ensamblaje más robusto que capture más de la diversidad en su sistema, pero no siempre
+
+&gt;**2. Facilita la comparación entre muestras**: Al brindar un ensamblaje de referencia para usar con todos
+
+&gt;**3. Mejora sustancialmente la capacidad para recuperar genomas de metagenomas**: debido al increíble poder de la cobertura diferencial
+
+---
+
+# Coensamblaje
+
++ Aunque ya vimos los beneficios,no será ideal en todos los escenarios.Y como ocurre con la mayoría de las cosas en bioinformática, no hay reglas de oro sobre cuándo sería mejor ensamblar varias muestras juntas y cuándo sería mejor ejecutar ensamblajes individuales en cada una. 
+
++ Esto se debe a que depende de muchos factores, como: 
+
+  - La diversidad de las comunidades en su conjunto
+  - Cuánta variación en las comunidades hay entre las muestras
+  - Los ensambladores que estamos probando
+  - Nuestros objetivos generales y/o pregunta de investigación. 
+ 
+Puede haber muchas situaciones en las que un ensamblaje conjunto podría darnos un ensamblaje mucho más pobre que cualquier ensamblaje individual y viceversa. Es algo a tener en cuenta y considerar.
+
+---
+- **Ejemplo en el que probablemente sea una buena idea ensamblar:**
+
+Si se trabaja con un experimento que comenzó con una cultivo mixto que se dividió en múltiples tratamientos, y luego, después de un tiempo, secuenciamos los metagenomas de todos.
+
+- **Ejemplo en el que es muy difícil saber si un coensamblaje dañaría o ayudaría más:**
+
+Si trabaja con múltiples muestras ambientales de diferentes ubicaciones (ya sea a metros o centímetros de distancia, según el contexto de muestreo).
+
+- **Ejemplo donde lo más probable es que no sea una buena idea coensamblar:**
+
+Si se trabaja con muestras de microbioma de diferentes individuos. (Sin embargo, si trabaja con muestras de microbioma del mismo individuo a lo largo del tiempo, probablemente sea una buena idea ensamblarlas).
+---
+
+#Emsable y coensamble con Megahit
+
+```bash
+megahit -1 Sample_A_1.fastq.gz -2 Sample_A_2.fastq.gz -o megahit-assembly-A
+```
+
+
+```bash
+megahit -1 ../data/Sample_A_1.fastq.gz,../data/Sample_B_1.fastq.gz,../data/Sample_C_1.fastq.gz,../data/Sample_D_1.fastq.gz \
+         -2 ../data/Sample_A_2.fastq.gz,../data/Sample_B_2.fastq.gz,../data/Sample_C_2.fastq.gz,../data/Sample_D_2.fastq.gz \
+         -o megahit-assembly-all -t 6
+```
+
+- `1`, `2`  = single, forward reads 
+- `o` = directorio de salida
+
+---
+# Mapeo de lecturas
+.pull-left[
+#### bowtie2
+
+```bash
+#indexar
+bowtie2-build final.contigs.fa assembly
+
+#mapeando una muestra
+bowtie2 -q -x assembly -1 ../data/Sample_A_1.fastq.gz \
+       -2 ../data/Sample_A_2.fastq.gz --no-unal \
+       -p 6 -S Sample_A.sam
+
+#convertir de .sam a .bam
+samtools view -b -o Sample_A-raw.bam Sample_A.sam
+
+#sorteando e indexando el .bam 
+samtools sort -o Sample_A.bam Sample_A-raw.bam
+samtools index Sample_A.bam
+```
+`
+
+
+]
+.pull-right[
+#### Bbmap
+
+```bash
+#mapeando una muestra
+bbmap.sh ref=final.contigs.fa in1=Sample_A_1.fastq in2=Sample_A_2.fastq out=Sample_A.sam  
+
+#convertir de .sam a .bam y sortear
+samtools view -bShu Sample_A.sam | samtools sort -o Sample_A.bam
+
+#indexando el .bam
+samtools index Sample_A.bam
+```
+]
+
+---
+# [Binning](https://comunidadbioinfo.github.io/cdsb2022/mapeo-y-binning.html)
+
+Se han desarrollado muchas herramientas de agrupación de metagenomas para agrupar los andamios en grupos para representar el genoma completo de un organismo.
+
+|Tool              | Algoritmo    | Website    | 
+|-------------------|-------------|-------------|
+| MaxBin2|Expectativa-maximización|[link](https://sourceforge.net/projects/maxbin/) |
+| CONCOCT  | Modelos mixtos Gausianos |[link](https://github.com/BinPro/CONCOCT) | 
+| MetaBAT2 | Propagación de etiquetas|[link](https://bitbucket.org/berkeleylab/metabat/src) |
+| anvi’o | Modelos de Markov  |[link](https://anvio.org/) |
+| MetaWRAP | Aprendizaje conjunto|[link](https://github.com/bxlab/metaWRAP) |
+| DAS Tool| Aprendizaje conjunto|[link](https://github.com/cmks/DAS_Tool) |
+
+
+---
+#### MaxBin
+
+
+```bash
+run_MaxBin.pl -contig final.contigs.fa -out results/maxbin -abund htn-depth.txt 
+
+```
+
+#### MetaBat
+Calcular la cobertura
+
+```bash
+jgi_summarize_bam_contig_depths --outputDepth htn-depth.txt Sample_A.bam
+
+```
+Obtener bins
+
+```bash
+metabat -i final.contigs.fa -a htn-depth.txt -o results/bins  --saveCls  --minCV 0.1 -m 2000
+```
+saveCls(Guardas cluster como matriz), minCVSum(minimo total de cobertura), m (minimo tamaño de contig)
+
+
+---
+####CONCOT
+Se fragmentan contigs
+
+```bash
+cut_up_fasta.py final.contigs.fa -o 0 --merge_last -b results/SplitAssembly-htn.bed &gt; results/htn.fasta-split10K.fa
+```
+
+Cálculo cobertura
+
+```bash
+concoct_coverage_table.py results/SplitAssembly-htn.bed data/htn_sorted.bam &gt; results/concoct_coverage_table_htn.tsv
+```
+Obtener bins
+
+```bash
+concoct --coverage_file results/concoct_coverage_table_htn.tsv --composition_file results/htn.fasta-split10K.fa --basename concot --iterations 500
+```
+Combinar contigs
+
+```bash
+merge_cutup_clustering.py concot_clustering_gt3000.csv &gt; results/merged-htn-gt3000.csv
+```
+Extraer bins como fasta individualmente
+
+```bash
+extract_fasta_bins.py  final.contigs.fa  results/merged-htn-gt3000.csv --output_path results/bins-concot
+```
+
+---
+# DAS Tool
+
+DAS Tool es un método automatizado que integra los resultados de un número flexible de algoritmos de agrupamiento para calcular un conjunto optimizado y no redundante de agrupaciones a partir de un único ensamblaje.
+
+
+```bash
+Fasta_to_Contig2Bin.sh -i results/bins -e fasta &gt; maxbin_scaffolds2bin.tsv
+```
+
+
+
+```bash
+Fasta_to_Contig2Bin.sh -i Metabat2/results -e fa &gt; metabat_scaffolds2bin.tsv
+```
+
+
+
+```bash
+Fasta_to_Contig2Bin.sh -i bins-concoct/ -e fa &gt; concoct_scaffolds2bin.tsv
+```
+
+
+
+```bash
+DAS_Tool -i maxbin_contigs2bin.tsv,metabat_scaffolds2bin.tsv,concoct_scaffolds2bin.tsv -l maxbin,metabat,concoct -c final -o results/htn_bins  -t 4  --search_engine diamond --write_bins  
+```
+
+---
+#[CheckM](https://github.com/Ecogenomics/CheckM/wiki)
+- CheckM proporciona un conjunto de herramientas para evaluar la calidad de los genomas recuperados de metagenomas. 
+- Proporciona estimaciones sólidas de la integridad y la contaminación del genoma 
+
+```bash
+checkm  lineage_wf -x fa /results/htn_bins_DASTool_bins DAStools-log_htn  -f CheckM-DAS_Tool_bins.txt
+
+```
+
+
+
+
+---
+#Referencias
+
+-https://angus.readthedocs.io/en/2019/recovering-rep-genomes-from-mgs.html
+
+- Liu, Y.-X., Qin, Y., Chen, T., Lu, M., Qian, X., Guo, X., Bai, Y., 2021. A practical guide to amplicon and metagenomic analysis of microbiome data. Protein Cell 12, 315–330. https://doi.org/10.1007/s13238-020-00724-8
+
+- Wooley JC, Godzik A, Friedberg I (2010) A Primer on Metagenomics. PLOS Computational Biology 6(2): e1000667. https://doi.org/10.1371/journal.pcbi.1000667
+
+-Yang, C., Chowdhury, D., Zhang, Z., Cheung, W. K., Lu, A., Bian, Z., &amp; Zhang, L. (2021). A review of computational tools for generating metagenome-assembled genomes from metagenomic sequencing data. Computational and Structural Biotechnology Journal, 19, 6301-6314. https://doi.org/10.1016/j.csbj.2021.11.028
+
+-Goussarov, G., Mysara, M., Vandamme, P., &amp; Van Houdt, R. (2022). Introduction to the principles and methods underlying the recovery of metagenome-assembled genomes from metagenomic data. MicrobiologyOpen, 11, e1298. https://doi.org/10.1002/mbo3.1298
+
+
+
+
+- https://learn.gencore.bio.nyu.edu/metgenomics/shotgun-metagenomics/functional-analysis/
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

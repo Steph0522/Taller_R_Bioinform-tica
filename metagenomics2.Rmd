@@ -1,0 +1,271 @@
+---
+title: "Básicos Metagenómica"
+author: "Ph D. Stephanie Hereira Pacheco"
+institute: "CTBC-UATx"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    nature:
+      ratio: '16:9'
+    
+---
+```{r xaringan-themer, include=FALSE, warning=FALSE, eval=TRUE,echo=FALSE}
+library(xaringanthemer)
+style_mono_accent(
+  base_color = "#800080",
+  header_font_google = google_font("Overpass Mono"),
+  text_font_google= google_font("Ubuntu", "400", "400i"),
+  text_font_size = "1.5rem",
+)
+xaringanExtra::use_clipboard()
+```
+
+
+class: inverse, center, middle
+
+# Introducción - Generalidades
+
+---
+
+# Introducción
+
+- La secuenciación metagenómica "shotgun" tiene como objetivo obtener todo el ADN accesiblede una comunidad mixta que permite la obtención de perfiles taxonómicos y funcionales. 
+
+- Recientemente, la recuperación de "genomas" a partir de metagenomas se ha convertido en un enfoque muy poderoso en ecología microbiana dándonos acceso genómico a poblaciones microbianas no cultivables.
+
+- Sin embargo, es importante entender que incluso los genomas de más alta calidad recuperados de un metagenoma a menudo no son los mismos que los de un genoma aislado. Es por eso que la comunidad ha comenzado a referirse a ellos como genomas ensamblados de metagenomas o MAGs. 
+
+
+
+---
+background-image: url(https://github.com/Steph0522/Taller_R_Bioinformatica/blob/main/images/meta3.jpg?raw=true)
+
+
+background-size: contain
+--
+background-image: url(https://github.com/Steph0522/Taller_R_Bioinformatica/blob/main/images/meta52.jpg?raw=true)
+
+
+background-size: contain 
+
+---
+background-image: url(https://raw.githubusercontent.com/Steph0522/Taller_R_Bioinformatica/main/images/meta52.jpg)
+
+
+background-size: contain
+
+---
+class: inverse, center, middle
+
+# Coensamblaje
+
+---
+
+# Coensamblaje
+
+***“Coensamblaje”*** se refiere a realizar un ensamblaje en el que los archivos de entrada se leerían de varias muestras. 
+
+Los tres principales beneficios del coensamblaje incluyen:
+
+>**1. Mayor profundidad de lectura**: esto puede permitirle tener un ensamblaje más robusto que capture más de la diversidad en su sistema, pero no siempre
+
+>**2. Facilita la comparación entre muestras**: Al brindar un ensamblaje de referencia para usar con todos
+
+>**3. Mejora sustancialmente la capacidad para recuperar genomas de metagenomas**: debido al increíble poder de la cobertura diferencial
+
+---
+
+# Coensamblaje
+
++ Aunque ya vimos los beneficios,no será ideal en todos los escenarios.Y como ocurre con la mayoría de las cosas en bioinformática, no hay reglas de oro sobre cuándo sería mejor ensamblar varias muestras juntas y cuándo sería mejor ejecutar ensamblajes individuales en cada una. 
+
++ Esto se debe a que depende de muchos factores, como: 
+
+  - La diversidad de las comunidades en su conjunto
+  - Cuánta variación en las comunidades hay entre las muestras
+  - Los ensambladores que estamos probando
+  - Nuestros objetivos generales y/o pregunta de investigación. 
+ 
+Puede haber muchas situaciones en las que un ensamblaje conjunto podría darnos un ensamblaje mucho más pobre que cualquier ensamblaje individual y viceversa. Es algo a tener en cuenta y considerar.
+
+---
+- **Ejemplo en el que probablemente sea una buena idea ensamblar:**
+
+Si se trabaja con un experimento que comenzó con una cultivo mixto que se dividió en múltiples tratamientos, y luego, después de un tiempo, secuenciamos los metagenomas de todos.
+
+- **Ejemplo en el que es muy difícil saber si un coensamblaje dañaría o ayudaría más:**
+
+Si trabaja con múltiples muestras ambientales de diferentes ubicaciones (ya sea a metros o centímetros de distancia, según el contexto de muestreo).
+
+- **Ejemplo donde lo más probable es que no sea una buena idea coensamblar:**
+
+Si se trabaja con muestras de microbioma de diferentes individuos. (Sin embargo, si trabaja con muestras de microbioma del mismo individuo a lo largo del tiempo, probablemente sea una buena idea ensamblarlas).
+---
+
+#Emsable y coensamble con Megahit
+```{bash, eval=FALSE}
+megahit -1 Sample_A_1.fastq.gz -2 Sample_A_2.fastq.gz -o megahit-assembly-A
+```
+
+```{bash, eval=FALSE}
+megahit -1 ../data/Sample_A_1.fastq.gz,../data/Sample_B_1.fastq.gz,../data/Sample_C_1.fastq.gz,../data/Sample_D_1.fastq.gz \
+         -2 ../data/Sample_A_2.fastq.gz,../data/Sample_B_2.fastq.gz,../data/Sample_C_2.fastq.gz,../data/Sample_D_2.fastq.gz \
+         -o megahit-assembly-all -t 6
+```
+
+- `1`, `2`  = single, forward reads 
+- `o` = directorio de salida
+
+---
+# Mapeo de lecturas
+.pull-left[
+#### bowtie2
+```{bash, eval=FALSE}
+#indexar
+bowtie2-build final.contigs.fa assembly
+
+#mapeando una muestra
+bowtie2 -q -x assembly -1 ../data/Sample_A_1.fastq.gz \
+       -2 ../data/Sample_A_2.fastq.gz --no-unal \
+       -p 6 -S Sample_A.sam
+
+#convertir de .sam a .bam
+samtools view -b -o Sample_A-raw.bam Sample_A.sam
+
+#sorteando e indexando el .bam 
+samtools sort -o Sample_A.bam Sample_A-raw.bam
+samtools index Sample_A.bam
+```
+`
+
+
+]
+.pull-right[
+#### Bbmap
+```{bash, eval=FALSE, fig.align='center', out.width='100%'}
+#mapeando una muestra
+bbmap.sh ref=final.contigs.fa in1=Sample_A_1.fastq in2=Sample_A_2.fastq out=Sample_A.sam  
+
+#convertir de .sam a .bam y sortear
+samtools view -bShu Sample_A.sam | samtools sort -o Sample_A.bam
+
+#indexando el .bam
+samtools index Sample_A.bam
+```
+]
+
+---
+# [Binning](https://comunidadbioinfo.github.io/cdsb2022/mapeo-y-binning.html)
+
+Se han desarrollado muchas herramientas de agrupación de metagenomas para agrupar los andamios en grupos para representar el genoma completo de un organismo.
+
+|Tool              | Algoritmo    | Website    | 
+|-------------------|-------------|-------------|
+| MaxBin2|Expectativa-maximización|[link](https://sourceforge.net/projects/maxbin/) |
+| CONCOCT  | Modelos mixtos Gausianos |[link](https://github.com/BinPro/CONCOCT) | 
+| MetaBAT2 | Propagación de etiquetas|[link](https://bitbucket.org/berkeleylab/metabat/src) |
+| anvi’o | Modelos de Markov  |[link](https://anvio.org/) |
+| MetaWRAP | Aprendizaje conjunto|[link](https://github.com/bxlab/metaWRAP) |
+| DAS Tool| Aprendizaje conjunto|[link](https://github.com/cmks/DAS_Tool) |
+
+
+---
+#### MaxBin
+
+```{bash, eval=FALSE}
+run_MaxBin.pl -contig final.contigs.fa -out results/maxbin -abund htn-depth.txt 
+
+```
+
+#### MetaBat
+Calcular la cobertura
+```{bash, eval=FALSE}
+jgi_summarize_bam_contig_depths --outputDepth htn-depth.txt Sample_A.bam
+
+```
+Obtener bins
+```{bash, eval=FALSE}
+metabat -i final.contigs.fa -a htn-depth.txt -o results/bins  --saveCls  --minCV 0.1 -m 2000
+```
+saveCls(Guardas cluster como matriz), minCVSum(minimo total de cobertura), m (minimo tamaño de contig)
+
+
+---
+####CONCOT
+Se fragmentan contigs
+```{bash, eval=FALSE}
+cut_up_fasta.py final.contigs.fa -o 0 --merge_last -b results/SplitAssembly-htn.bed > results/htn.fasta-split10K.fa
+```
+
+Cálculo cobertura
+```{bash, eval=FALSE}
+concoct_coverage_table.py results/SplitAssembly-htn.bed data/htn_sorted.bam > results/concoct_coverage_table_htn.tsv
+```
+Obtener bins
+```{bash, eval=FALSE}
+concoct --coverage_file results/concoct_coverage_table_htn.tsv --composition_file results/htn.fasta-split10K.fa --basename concot --iterations 500
+```
+Combinar contigs
+```{bash, eval=FALSE}
+merge_cutup_clustering.py concot_clustering_gt3000.csv > results/merged-htn-gt3000.csv
+```
+Extraer bins como fasta individualmente
+```{bash, eval=FALSE}
+extract_fasta_bins.py  final.contigs.fa  results/merged-htn-gt3000.csv --output_path results/bins-concot
+```
+
+---
+# DAS Tool
+
+DAS Tool es un método automatizado que integra los resultados de un número flexible de algoritmos de agrupamiento para calcular un conjunto optimizado y no redundante de agrupaciones a partir de un único ensamblaje.
+
+```{bash, eval=FALSE}
+Fasta_to_Contig2Bin.sh -i results/bins -e fasta > maxbin_scaffolds2bin.tsv
+```
+
+
+```{bash, eval=FALSE}
+Fasta_to_Contig2Bin.sh -i Metabat2/results -e fa > metabat_scaffolds2bin.tsv
+```
+
+
+```{bash, eval=FALSE}
+Fasta_to_Contig2Bin.sh -i bins-concoct/ -e fa > concoct_scaffolds2bin.tsv
+```
+
+
+```{bash, eval=FALSE}
+DAS_Tool -i maxbin_contigs2bin.tsv,metabat_scaffolds2bin.tsv,concoct_scaffolds2bin.tsv -l maxbin,metabat,concoct -c final -o results/htn_bins  -t 4  --search_engine diamond --write_bins  
+```
+
+---
+#[CheckM](https://github.com/Ecogenomics/CheckM/wiki)
+- CheckM proporciona un conjunto de herramientas para evaluar la calidad de los genomas recuperados de metagenomas. 
+- Proporciona estimaciones sólidas de la integridad y la contaminación del genoma 
+```{bash, eval=FALSE}
+checkm  lineage_wf -x fa /results/htn_bins_DASTool_bins DAStools-log_htn  -f CheckM-DAS_Tool_bins.txt
+
+```
+
+
+
+
+---
+#Referencias
+
+-https://angus.readthedocs.io/en/2019/recovering-rep-genomes-from-mgs.html
+
+- Liu, Y.-X., Qin, Y., Chen, T., Lu, M., Qian, X., Guo, X., Bai, Y., 2021. A practical guide to amplicon and metagenomic analysis of microbiome data. Protein Cell 12, 315–330. https://doi.org/10.1007/s13238-020-00724-8
+
+- Wooley JC, Godzik A, Friedberg I (2010) A Primer on Metagenomics. PLOS Computational Biology 6(2): e1000667. https://doi.org/10.1371/journal.pcbi.1000667
+
+-Yang, C., Chowdhury, D., Zhang, Z., Cheung, W. K., Lu, A., Bian, Z., & Zhang, L. (2021). A review of computational tools for generating metagenome-assembled genomes from metagenomic sequencing data. Computational and Structural Biotechnology Journal, 19, 6301-6314. https://doi.org/10.1016/j.csbj.2021.11.028
+
+-Goussarov, G., Mysara, M., Vandamme, P., & Van Houdt, R. (2022). Introduction to the principles and methods underlying the recovery of metagenome-assembled genomes from metagenomic data. MicrobiologyOpen, 11, e1298. https://doi.org/10.1002/mbo3.1298
+
+
+
+
+- https://learn.gencore.bio.nyu.edu/metgenomics/shotgun-metagenomics/functional-analysis/
+
