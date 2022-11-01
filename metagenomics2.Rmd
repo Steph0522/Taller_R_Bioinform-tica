@@ -44,7 +44,7 @@ background-image: url(https://github.com/Steph0522/Taller_R_Bioinformatica/blob/
 
 background-size: contain
 --
-background-image: url(https://github.com/Steph0522/Taller_R_Bioinformatica/blob/main/images/meta52.jpg?raw=true)
+background-image: url(https://github.com/Steph0522/Taller_R_Bioinformatica/blob/main/images/meta4.jpg?raw=true)
 
 
 background-size: contain 
@@ -192,7 +192,7 @@ saveCls(Guardas cluster como matriz), minCVSum(minimo total de cobertura), m (mi
 
 
 ---
-####CONCOT
+#### concoct
 Se fragmentan contigs
 ```{bash, eval=FALSE}
 cut_up_fasta.py final.contigs.fa -o 0 --merge_last -b results/SplitAssembly-htn.bed > results/htn.fasta-split10K.fa
@@ -248,24 +248,84 @@ checkm  lineage_wf -x fa /results/htn_bins_DASTool_bins DAStools-log_htn  -f Che
 
 ```
 
+---
+
+# Asignación taxonómica y funcional
+
+[GTDBTk](https://github.com/Ecogenomics/GTDBTk)
+
+```{bash, eval=FALSE}
+gtdbtk classify_wf --genome_dir /Bins --out_dir /GTDBTK --cpus 4 -x fa 
+```
+
+[Prodigal](https://github.com/hyattpd/Prodigal) para predecir proteínas 
+```{bash, eval=FALSE}
+for i in /Bins/*.fa ; do prodigal -i $i -o $i.txt -a $i.faa ; done
+```
+---
+# Anotación de proteínas
+- [kofam_scan](https://github.com/takaram/kofam_scan)
+
+Para una muestra
+```{bash, eval=FALSE}
+kofam_scan-1.3.0/exec_annotation -o bins.fa.faa.txt bins.fa.faa  --report-unannotated  --cpu 4
+```
+
+Para todas en loop:
+```{bash, eval=FALSE}
+for i in *.faa ; do  kofam_scan-1.3.0/exec_annotation -o $i.txt $i  --report-unannotated  --cpu 4; done
+```
+---
+# Anotación de proteínas
+- [InterproScan](https://interproscan-docs.readthedocs.io/en/latest/)
+
+Formateamos los archivos
+```{bash, eval=FALSE}
+for i in $(ls *.faa); do sed -i "s/\*//g" $i; done
+```
+
+Corremos interproscan
+```{bash, eval=FALSE}
+for i in $(ls *.faa); do interproscan.sh -cpu 4 -goterms -pa -i $i > Log_Interpro_Scan_$i.txt; done
+```
+
+Juntamos todos los outputs
+```{bash, eval=FALSE}
+cat *.tsv > htn_interpro.tsv
+
+```
 
 
 
 ---
+# Otros recursos
+
+- Bins de eucariontes: [EukRep](https://github.com/patrickwest/EukRep), [pipeline](https://github.com/patrickwest/EukRep_Pipeline)
+
+- Estimador de calidad de bins eucarióticos: [EukCC](https://github.com/Finn-Lab/EukCC)
+
+- Predicción de genes: [genemarker-ES](http://exon.gatech.edu/GeneMark/license_download.cgi) y [MARKER2](http://www.yandell-lab.org/software/maker.html)
+
+- Evaluación del ensamble e integridad de la anotación: [BUSCO](https://github.com/WenchaoLin/BUSCO-Mod)
+
+- Asignación taxonómmica : [taxator-tk](https://github.com/fungs/taxator-tk)
+
+---
 #Referencias
 
--https://angus.readthedocs.io/en/2019/recovering-rep-genomes-from-mgs.html
+- https://angus.readthedocs.io/en/2019/recovering-rep-genomes-from-mgs.html
 
 - Liu, Y.-X., Qin, Y., Chen, T., Lu, M., Qian, X., Guo, X., Bai, Y., 2021. A practical guide to amplicon and metagenomic analysis of microbiome data. Protein Cell 12, 315–330. https://doi.org/10.1007/s13238-020-00724-8
 
 - Wooley JC, Godzik A, Friedberg I (2010) A Primer on Metagenomics. PLOS Computational Biology 6(2): e1000667. https://doi.org/10.1371/journal.pcbi.1000667
 
--Yang, C., Chowdhury, D., Zhang, Z., Cheung, W. K., Lu, A., Bian, Z., & Zhang, L. (2021). A review of computational tools for generating metagenome-assembled genomes from metagenomic sequencing data. Computational and Structural Biotechnology Journal, 19, 6301-6314. https://doi.org/10.1016/j.csbj.2021.11.028
+- https://comunidadbioinfo.github.io/cdsb2022/
+---
+#Referencias
 
--Goussarov, G., Mysara, M., Vandamme, P., & Van Houdt, R. (2022). Introduction to the principles and methods underlying the recovery of metagenome-assembled genomes from metagenomic data. MicrobiologyOpen, 11, e1298. https://doi.org/10.1002/mbo3.1298
+- Yang, C., Chowdhury, D., Zhang, Z., Cheung, W. K., Lu, A., Bian, Z., & Zhang, L. (2021). A review of computational tools for generating metagenome-assembled genomes from metagenomic sequencing data. Computational and Structural Biotechnology Journal, 19, 6301-6314. https://doi.org/10.1016/j.csbj.2021.11.028
 
-
-
+- Goussarov, G., Mysara, M., Vandamme, P., & Van Houdt, R. (2022). Introduction to the principles and methods underlying the recovery of metagenome-assembled genomes from metagenomic data. MicrobiologyOpen, 11, e1298. https://doi.org/10.1002/mbo3.1298
 
 - https://learn.gencore.bio.nyu.edu/metgenomics/shotgun-metagenomics/functional-analysis/
 
