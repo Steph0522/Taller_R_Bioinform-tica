@@ -310,6 +310,8 @@ cat *.tsv > htn_interpro.tsv
 
 - Asignación taxonómmica : [taxator-tk](https://github.com/fungs/taxator-tk)
 
+- Visualización y exploración: [Rbims](https://github.com/mirnavazquez/RbiMs)
+
 ---
 #Referencias
 
