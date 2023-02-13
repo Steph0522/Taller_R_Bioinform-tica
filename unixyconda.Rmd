@@ -10,10 +10,17 @@ output:
       ratio: '16:9'
     
 ---
-```{r xaringan-themer, include=FALSE, warning=FALSE, eval=TRUE, echo=FALSE}
-#https://pkg.garrickadenbuie.com/xaringanthemer/
+```{r xaringan-themer, include=FALSE, warning=FALSE, eval=TRUE}
 library(xaringanthemer)
-style_mono_accent(base_color = "#23395b")
+style_mono_accent(
+  base_color = "#103261",
+  header_font_google = google_font("Poppins"),
+  text_font_google= google_font("Libre Franklin", "300", "300i"),
+  text_font_size = "1.5rem",
+  code_font_google   = google_font("Fira Mono"),
+  code_highlight_color = "#E3906F", 
+  code_inline_color = "#0E2B54",
+)
 ```
 
 ```{r xaringanExtra-clipboard, echo=FALSE}
@@ -21,6 +28,13 @@ xaringanExtra::use_clipboard(
   button_text = "Haga clic para copiar",
   success_text = "Copiado",
   error_text = "Pulse Ctrl + C para copiar"
+)
+```
+
+```{r xaringan-logo, echo=FALSE}
+library(xaringanExtra)
+xaringan_logo <- file.path("logo.png")
+use_logo(xaringan_logo, position = css_position(bottom = "-2.5em", right = "3.5em"),
 )
 ```
 
@@ -40,13 +54,24 @@ class:  middle
 ```{bash, eval=FALSE}
 #macOS
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -O ~/miniconda.sh
-bash ~/miniconda.sh -b -p $HOME/miniconda
+```
 
+
+```{bash, eval=FALSE}
+bash ~/miniconda.sh -b -p $HOME/miniconda
+```
+
+
+```{bash, eval=FALSE}
 #Linux
 bash Miniconda3-latest-Linux-x86_64.sh
-bash Anaconda-latest-Linux-x86_64.sh
-
 ```
+
+
+```{bash, eval=FALSE}
+bash Anaconda-latest-Linux-x86_64.sh
+```
+
 
 ---
 class: inverse, center, middle
@@ -58,7 +83,7 @@ class: inverse, center, middle
 
 # ¿Qué es UNIX?
 
-- Es un sistema operativo desarrollado por Ken Thompson y Dennis Ritchie en 1969.
+- Es un sistema operativo desarrollado por Ken Thompson y Dennis Ritchie en 1969. 
 
 -  Fue desarrollado con el objetivo de escribir programas para una sola tarea y que colaboren entre sí además de manejar un flujo de texto que pueda funcionar en una interfaz universal.
 

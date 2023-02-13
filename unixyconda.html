@@ -4,7 +4,7 @@
     <title>Básicos UNIX y conda</title>
     <meta charset="utf-8" />
     <meta name="author" content="Ph D. Stephanie Hereira Pacheco" />
-    <meta name="date" content="2023-02-12" />
+    <meta name="date" content="2023-02-13" />
     <script src="unixyconda_files/header-attrs-2.18/header-attrs.js"></script>
     <script src="unixyconda_files/clipboard-2.0.6/clipboard.min.js"></script>
     <link href="unixyconda_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
@@ -26,7 +26,7 @@ class: center, middle, inverse, title-slide
 ### CTBC-UATx
 ]
 .date[
-### 2023-02-12
+### 2023-02-13
 ]
 
 ---
@@ -34,6 +34,40 @@ class: center, middle, inverse, title-slide
 
 
 
+
+<div>
+<style type="text/css">.xaringan-extra-logo {
+width: 110px;
+height: 128px;
+z-index: 0;
+background-image: url(logo.png);
+background-size: contain;
+background-repeat: no-repeat;
+position: absolute;
+right:3.5em;bottom:-2.5em;
+}
+</style>
+<script>(function () {
+  let tries = 0
+  function addLogo () {
+    if (typeof slideshow === 'undefined') {
+      tries += 1
+      if (tries < 10) {
+        setTimeout(addLogo, 100)
+      }
+    } else {
+      document.querySelectorAll('.remark-slide-content:not(.title-slide):not(.inverse):not(.hide_logo)')
+        .forEach(function (slide) {
+          const logo = document.createElement('div')
+          logo.classList = 'xaringan-extra-logo'
+          logo.href = null
+          slide.appendChild(logo)
+        })
+    }
+  }
+  document.addEventListener('DOMContentLoaded', addLogo)
+})()</script>
+</div>
 
 class: inverse, center, middle  
 
@@ -52,13 +86,27 @@ class:  middle
 ```bash
 #macOS
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -O ~/miniconda.sh
-bash ~/miniconda.sh -b -p $HOME/miniconda
+```
 
+
+
+```bash
+bash ~/miniconda.sh -b -p $HOME/miniconda
+```
+
+
+
+```bash
 #Linux
 bash Miniconda3-latest-Linux-x86_64.sh
-bash Anaconda-latest-Linux-x86_64.sh
-
 ```
+
+
+
+```bash
+bash Anaconda-latest-Linux-x86_64.sh
+```
+
 
 ---
 class: inverse, center, middle
@@ -70,7 +118,7 @@ class: inverse, center, middle
 
 # ¿Qué es UNIX?
 
-- Es un sistema operativo desarrollado por Ken Thompson y Dennis Ritchie en 1969.
+- Es un sistema operativo desarrollado por Ken Thompson y Dennis Ritchie en 1969. 
 
 -  Fue desarrollado con el objetivo de escribir programas para una sola tarea y que colaboren entre sí además de manejar un flujo de texto que pueda funcionar en una interfaz universal.
 
