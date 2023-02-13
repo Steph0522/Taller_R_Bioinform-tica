@@ -5,17 +5,17 @@ institute: "CTBC-UATx"
 date: "`r Sys.Date()`"
 output:
   xaringan::moon_reader:
-    css: xaringan-themer2.css
+    css: xaringan-themer.css
     nature:
       ratio: '16:9'
     
 ---
-```{r xaringan-themer, include=FALSE, warning=FALSE, eval=FALSE}
+```{r xaringan-themer, include=FALSE, warning=FALSE, eval=TRUE}
 library(xaringanthemer)
 style_mono_accent(
   base_color = "#7B241C",
-  header_font_google = google_font("Plex Mono Semi Bold"),
-  text_font_google= google_font("Plex Serif Regular", "400", "400i"),
+  header_font_google = google_font("Overpass Mono"),
+  text_font_google= google_font("Ubuntu", "400", "400i"),
   text_font_size = "1.5rem",
   code_font_google   = google_font("Fira Mono")
 )
