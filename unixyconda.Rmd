@@ -10,11 +10,19 @@ output:
       ratio: '16:9'
     
 ---
-```{r xaringan-themer, include=FALSE, warning=FALSE, eval=TRUE}
+```{r xaringan-themer, include=FALSE, warning=FALSE, eval=TRUE, echo=FALSE}
+#https://pkg.garrickadenbuie.com/xaringanthemer/
 library(xaringanthemer)
 style_mono_accent(base_color = "#23395b")
 ```
 
+```{r xaringanExtra-clipboard, echo=FALSE}
+xaringanExtra::use_clipboard(
+  button_text = "Haga clic para copiar",
+  success_text = "Copiado",
+  error_text = "Pulse Ctrl + C para copiar"
+)
+```
 
 class: inverse, center, middle  
 
