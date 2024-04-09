@@ -18,21 +18,21 @@
  *  Version: 0.4.2
  *
  * ------------------------------------------------------- */
-@import url(https://fonts.googleapis.com/css?family=Libre+Franklin:300,300i&display=swap);
-@import url(https://fonts.googleapis.com/css?family=Poppins&display=swap);
-@import url(https://fonts.googleapis.com/css?family=Fira+Mono&display=swap);
+@import url(https://fonts.googleapis.com/css?family=Ubuntu:400,400i&display=swap);
+@import url(https://fonts.googleapis.com/css?family=Overpass+Mono&display=swap);
+@import url(https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700&display=swap);
 
 
 :root {
   /* Fonts */
-  --text-font-family: 'Libre Franklin';
+  --text-font-family: Ubuntu;
   --text-font-is-google: 1;
   --text-font-family-fallback: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, Ubuntu, roboto, noto, segoe ui, arial;
   --text-font-base: sans-serif;
-  --header-font-family: Poppins;
+  --header-font-family: 'Overpass Mono';
   --header-font-is-google: 1;
   --header-font-family-fallback: Georgia, serif;
-  --code-font-family: 'Fira Mono';
+  --code-font-family: 'Source Code Pro';
   --code-font-is-google: 1;
   --base-font-size: 20px;
   --text-font-size: 1.5rem;
@@ -44,20 +44,20 @@
 
   /* Colors */
   --text-color: #272822;
-  --header-color: #103261;
+  --header-color: #800080;
   --background-color: #FFFFFF;
-  --link-color: #103261;
-  --text-bold-color: #103261;
-  --code-highlight-color: #E3906F;
+  --link-color: #800080;
+  --text-bold-color: #800080;
+  --code-highlight-color: rgba(255,255,0,0.5);
   --inverse-text-color: #FFFFFF;
-  --inverse-background-color: #103261;
+  --inverse-background-color: #800080;
   --inverse-header-color: #FFFFFF;
-  --inverse-link-color: #103261;
-  --title-slide-background-color: #103261;
+  --inverse-link-color: #800080;
+  --title-slide-background-color: #800080;
   --title-slide-text-color: #FFFFFF;
-  --header-background-color: #103261;
+  --header-background-color: #800080;
   --header-background-text-color: #FFFFFF;
-  --base: #103261;
+  --base: #800080;
   --white: #FFFFFF;
   --black: #272822;
 }
@@ -68,7 +68,7 @@ html {
 
 body {
   font-family: var(--text-font-family), var(--text-font-family-fallback), var(--text-font-base);
-  font-weight: 300;
+  font-weight: 400;
   color: var(--text-color);
 }
 h1, h2, h3 {
@@ -100,10 +100,10 @@ h1, h2, h3 {
 }
 .remark-inline-code {
   font-size: var(--code-inline-font-size);
-  color: #0E2B54;
+  color: #800080;
 }
 .remark-slide-number {
-  color: #103261;
+  color: #800080;
   opacity: 1;
   font-size: 0.9rem;
 }
@@ -151,10 +151,10 @@ a, a > code {
   float: left;
 }
 .left-column h2, .left-column h3 {
-  color: #10326199;
+  color: #80008099;
 }
 .left-column h2:last-of-type, .left-column h3:last-child {
-  color: #103261;
+  color: #800080;
 }
 .right-column {
   width: 75%;
@@ -176,7 +176,7 @@ img, video, iframe {
   max-width: 100%;
 }
 blockquote {
-  border-left: solid 5px #10326180;
+  border-left: solid 5px #80008080;
   padding-left: 1em;
 }
 .remark-slide table {
@@ -193,7 +193,7 @@ th, td {
 .remark-slide table:not(.table-unshaded) thead,
 .remark-slide table:not(.table-unshaded) tfoot,
 .remark-slide table:not(.table-unshaded) tr:nth-child(even) {
-  background: #CFD6DF;
+  background: #E5CCE5;
 }
 table.dataTable tbody {
   background-color: var(--background-color);
@@ -203,7 +203,7 @@ table.dataTable.display tbody tr.odd {
   background-color: var(--background-color);
 }
 table.dataTable.display tbody tr.even {
-  background-color: #CFD6DF;
+  background-color: #E5CCE5;
 }
 table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
   background-color: rgba(255, 255, 255, 0.5);

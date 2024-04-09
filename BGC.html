@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Identificación de BGCs</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Ph D. Stephanie Hereira Pacheco" />
+    <meta name="date" content="2024-04-08" />
+    <script src="BGC_files/header-attrs-2.25/header-attrs.js"></script>
+    <script src="BGC_files/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="BGC_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="BGC_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <link href="BGC_files/shareon-1.4.1/shareon.min.css" rel="stylesheet" />
+    <script src="BGC_files/shareon-1.4.1/shareon.min.js"></script>
+    <link href="BGC_files/xaringanExtra-shareagain-0.2.6/shareagain.css" rel="stylesheet" />
+    <script src="BGC_files/xaringanExtra-shareagain-0.2.6/shareagain.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <script src="BGC_files/xaringanExtra_fit-screen-0.2.6/fit-screen.js"></script>
+    <link href="BGC_files/tachyons-4.12.0/tachyons.min.css" rel="stylesheet" />
+    <link href="BGC_files/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="BGC_files/panelset-0.2.6/panelset.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Identificación de BGCs
+]
+.author[
+### Ph D. Stephanie Hereira Pacheco
+]
+.institute[
+### CTBC-UATx
+]
+.date[
+### 2024-04-08
+]
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class: inverse, center, middle
+
+# Introducción - Generalidades - Conceptos
+
+---
+
+## Introducción
+.panelset[
+.panel[.panel-name[BGCs]
+
+- Los genomas de los microorganismos tienen codificados Clústeres de Genes Biosintéticos de metabolismo especializado (BGCs): antibióticos o metabolismo secundario. 
+
+- Los genes en los clusteres actúan sucesivamente hasta producir una molécula [<svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M579.8 267.7c56.5-56.5 56.5-148 0-204.5c-50-50-128.8-56.5-186.3-15.4l-1.6 1.1c-14.4 10.3-17.7 30.3-7.4 44.6s30.3 17.7 44.6 7.4l1.6-1.1c32.1-22.9 76-19.3 103.8 8.6c31.5 31.5 31.5 82.5 0 114L422.3 334.8c-31.5 31.5-82.5 31.5-114 0c-27.9-27.9-31.5-71.8-8.6-103.8l1.1-1.6c10.3-14.4 6.9-34.4-7.4-44.6s-34.4-6.9-44.6 7.4l-1.1 1.6C206.5 251.2 213 330 263 380c56.5 56.5 148 56.5 204.5 0L579.8 267.7zM60.2 244.3c-56.5 56.5-56.5 148 0 204.5c50 50 128.8 56.5 186.3 15.4l1.6-1.1c14.4-10.3 17.7-30.3 7.4-44.6s-30.3-17.7-44.6-7.4l-1.6 1.1c-32.1 22.9-76 19.3-103.8-8.6C74 372 74 321 105.5 289.5L217.7 177.2c31.5-31.5 82.5-31.5 114 0c27.9 27.9 31.5 71.8 8.6 103.9l-1.1 1.6c-10.3 14.4-6.9 34.4 7.4 44.6s34.4 6.9 44.6-7.4l1.1-1.6C433.5 260.8 427 182 377 132c-56.5-56.5-148-56.5-204.5 0L60.2 244.3z"/></svg>](https://mibig.secondarymetabolites.org/repository/BGC0000893/index.html#r1c1)
+
+&lt;img src="images/bgc.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+
+.panel[.panel-name[Anotación de BGCs]
+
+- Los BGCs pueden anotarse por **similitud** con genes especializados conocidos o por **divergencia** con genes conservados.
+
+- Cada anotación funcional se realiza por comparación con otros genomas (Pangenómica).
+
+- Los genes en rutas de metabolismo especializado suelen estar en el **shell** o **dispensable or accesory genome**, no tanto en el **core**.
+]
+]
+---
+## Introducción
+.panelset[
+.panel[.panel-name[Core Genome]
+
+Genoma central, Se refiere al conjunto de genes que se encuentran comúnmente en todas las cepas de una especie bacteriana o microbiana. 
+
+Estos genes suelen ser esenciales para las funciones básicas de la célula y tienden a ser conservados a lo largo de la evolución. El core genome contiene genes que son críticos para el crecimiento y la supervivencia de la especie en una variedad de condiciones ambientales.
+]
+.panel[.panel-name[Dispensable Genome]
+
+El dispensable genome, también conocido como accesorio o variable genome, comprende los genes que no son esenciales para la supervivencia de la bacteria en todas las condiciones. 
+
+Estos genes pueden estar presentes solo en ciertas cepas o subpoblaciones de la especie y pueden conferir características específicas, como la capacidad de metabolizar sustratos particulares, resistencia a ciertos antibióticos o adaptaciones a nichos ecológicos específicos.
+]
+
+.panel[.panel-name[Shell Genome]
+
+El shell genome es una categoría intermedia entre el core genome y el dispensable genome. Consiste en genes que son comunes en muchas, pero no en todas las cepas de una especie bacteriana o microbiana.
+
+Estos genes pueden proporcionar cierta flexibilidad funcional y capacidad de adaptación a diferentes condiciones ambientales, pero no son esenciales en todas las cepas.
+
+]
+
+]
+---
+# Pangenómica - Un poco de historia
+
+--
+<svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M416 0c17.7 0 32 14.3 32 32c0 59.8-30.3 107.5-69.4 146.6c-28 28-62.5 53.5-97.3 77.4l-2.5 1.7c-11.9 8.1-23.8 16.1-35.5 23.9l0 0 0 0 0 0-1.6 1c-6 4-11.9 7.9-17.8 11.9c-20.9 14-40.8 27.7-59.3 41.5H283.3c-9.8-7.4-20.1-14.7-30.7-22.1l7-4.7 3-2c15.1-10.1 30.9-20.6 46.7-31.6c25 18.1 48.9 37.3 69.4 57.7C417.7 372.5 448 420.2 448 480c0 17.7-14.3 32-32 32s-32-14.3-32-32H64c0 17.7-14.3 32-32 32s-32-14.3-32-32c0-59.8 30.3-107.5 69.4-146.6c28-28 62.5-53.5 97.3-77.4c-34.8-23.9-69.3-49.3-97.3-77.4C30.3 139.5 0 91.8 0 32C0 14.3 14.3 0 32 0S64 14.3 64 32H384c0-17.7 14.3-32 32-32zM338.6 384H109.4c-10.1 10.6-18.6 21.3-25.5 32H364.1c-6.8-10.7-15.3-21.4-25.5-32zM109.4 128H338.6c10.1-10.7 18.6-21.3 25.5-32H83.9c6.8 10.7 15.3 21.3 25.5 32zm55.4 48c18.4 13.8 38.4 27.5 59.3 41.5c20.9-14 40.8-27.7 59.3-41.5H164.7z"/></svg> Este concepto fue introducido por [**Tettelin et al.**](https://www.pnas.org/doi/10.1073/pnas.0506758102) quién quería desarrollar una vacuna contra ***Streptococcus*** grupo B (GBS ó ***Streptococcus agalactiae***)
+
+--
+
+<svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M416 0c17.7 0 32 14.3 32 32c0 59.8-30.3 107.5-69.4 146.6c-28 28-62.5 53.5-97.3 77.4l-2.5 1.7c-11.9 8.1-23.8 16.1-35.5 23.9l0 0 0 0 0 0-1.6 1c-6 4-11.9 7.9-17.8 11.9c-20.9 14-40.8 27.7-59.3 41.5H283.3c-9.8-7.4-20.1-14.7-30.7-22.1l7-4.7 3-2c15.1-10.1 30.9-20.6 46.7-31.6c25 18.1 48.9 37.3 69.4 57.7C417.7 372.5 448 420.2 448 480c0 17.7-14.3 32-32 32s-32-14.3-32-32H64c0 17.7-14.3 32-32 32s-32-14.3-32-32c0-59.8 30.3-107.5 69.4-146.6c28-28 62.5-53.5 97.3-77.4c-34.8-23.9-69.3-49.3-97.3-77.4C30.3 139.5 0 91.8 0 32C0 14.3 14.3 0 32 0S64 14.3 64 32H384c0-17.7 14.3-32 32-32zM338.6 384H109.4c-10.1 10.6-18.6 21.3-25.5 32H364.1c-6.8-10.7-15.3-21.4-25.5-32zM109.4 128H338.6c10.1-10.7 18.6-21.3 25.5-32H83.9c6.8 10.7 15.3 21.3 25.5 32zm55.4 48c18.4 13.8 38.4 27.5 59.3 41.5c20.9-14 40.8-27.7 59.3-41.5H164.7z"/></svg> ***Streptococcus agalactiae*** un patógeno humano causante de infecciones neonatales.
+
+---
+# Pangenómica - Un poco de historia
+
+--
+
+<svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M416 0c17.7 0 32 14.3 32 32c0 59.8-30.3 107.5-69.4 146.6c-28 28-62.5 53.5-97.3 77.4l-2.5 1.7c-11.9 8.1-23.8 16.1-35.5 23.9l0 0 0 0 0 0-1.6 1c-6 4-11.9 7.9-17.8 11.9c-20.9 14-40.8 27.7-59.3 41.5H283.3c-9.8-7.4-20.1-14.7-30.7-22.1l7-4.7 3-2c15.1-10.1 30.9-20.6 46.7-31.6c25 18.1 48.9 37.3 69.4 57.7C417.7 372.5 448 420.2 448 480c0 17.7-14.3 32-32 32s-32-14.3-32-32H64c0 17.7-14.3 32-32 32s-32-14.3-32-32c0-59.8 30.3-107.5 69.4-146.6c28-28 62.5-53.5 97.3-77.4c-34.8-23.9-69.3-49.3-97.3-77.4C30.3 139.5 0 91.8 0 32C0 14.3 14.3 0 32 0S64 14.3 64 32H384c0-17.7 14.3-32 32-32zM338.6 384H109.4c-10.1 10.6-18.6 21.3-25.5 32H364.1c-6.8-10.7-15.3-21.4-25.5-32zM109.4 128H338.6c10.1-10.7 18.6-21.3 25.5-32H83.9c6.8 10.7 15.3 21.3 25.5 32zm55.4 48c18.4 13.8 38.4 27.5 59.3 41.5c20.9-14 40.8-27.7 59.3-41.5H164.7z"/></svg> Anteriormente se había podido obtener una vacuna para *Neisseria meningitidis* usando un solo genoma. 
+
+--
+
+<svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M416 0c17.7 0 32 14.3 32 32c0 59.8-30.3 107.5-69.4 146.6c-28 28-62.5 53.5-97.3 77.4l-2.5 1.7c-11.9 8.1-23.8 16.1-35.5 23.9l0 0 0 0 0 0-1.6 1c-6 4-11.9 7.9-17.8 11.9c-20.9 14-40.8 27.7-59.3 41.5H283.3c-9.8-7.4-20.1-14.7-30.7-22.1l7-4.7 3-2c15.1-10.1 30.9-20.6 46.7-31.6c25 18.1 48.9 37.3 69.4 57.7C417.7 372.5 448 420.2 448 480c0 17.7-14.3 32-32 32s-32-14.3-32-32H64c0 17.7-14.3 32-32 32s-32-14.3-32-32c0-59.8 30.3-107.5 69.4-146.6c28-28 62.5-53.5 97.3-77.4c-34.8-23.9-69.3-49.3-97.3-77.4C30.3 139.5 0 91.8 0 32C0 14.3 14.3 0 32 0S64 14.3 64 32H384c0-17.7 14.3-32 32-32zM338.6 384H109.4c-10.1 10.6-18.6 21.3-25.5 32H364.1c-6.8-10.7-15.3-21.4-25.5-32zM109.4 128H338.6c10.1-10.7 18.6-21.3 25.5-32H83.9c6.8 10.7 15.3 21.3 25.5 32zm55.4 48c18.4 13.8 38.4 27.5 59.3 41.5c20.9-14 40.8-27.7 59.3-41.5H164.7z"/></svg> Sin embargo, para este caso en su momento habían dos genomas disponibles. 
+
+--
+
+<svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M416 0c17.7 0 32 14.3 32 32c0 59.8-30.3 107.5-69.4 146.6c-28 28-62.5 53.5-97.3 77.4l-2.5 1.7c-11.9 8.1-23.8 16.1-35.5 23.9l0 0 0 0 0 0-1.6 1c-6 4-11.9 7.9-17.8 11.9c-20.9 14-40.8 27.7-59.3 41.5H283.3c-9.8-7.4-20.1-14.7-30.7-22.1l7-4.7 3-2c15.1-10.1 30.9-20.6 46.7-31.6c25 18.1 48.9 37.3 69.4 57.7C417.7 372.5 448 420.2 448 480c0 17.7-14.3 32-32 32s-32-14.3-32-32H64c0 17.7-14.3 32-32 32s-32-14.3-32-32c0-59.8 30.3-107.5 69.4-146.6c28-28 62.5-53.5 97.3-77.4c-34.8-23.9-69.3-49.3-97.3-77.4C30.3 139.5 0 91.8 0 32C0 14.3 14.3 0 32 0S64 14.3 64 32H384c0-17.7 14.3-32 32-32zM338.6 384H109.4c-10.1 10.6-18.6 21.3-25.5 32H364.1c-6.8-10.7-15.3-21.4-25.5-32zM109.4 128H338.6c10.1-10.7 18.6-21.3 25.5-32H83.9c6.8 10.7 15.3 21.3 25.5 32zm55.4 48c18.4 13.8 38.4 27.5 59.3 41.5c20.9-14 40.8-27.7 59.3-41.5H164.7z"/></svg> Entonces, se dieron cuenta la gran variabilidad en estas dos cepas lo que derribó la idea de que UN sólo genoma podría ser representativo para la especie. 
+
+---
+# Pangenómica - Un poco de historia
+--
+
+<svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M416 0c17.7 0 32 14.3 32 32c0 59.8-30.3 107.5-69.4 146.6c-28 28-62.5 53.5-97.3 77.4l-2.5 1.7c-11.9 8.1-23.8 16.1-35.5 23.9l0 0 0 0 0 0-1.6 1c-6 4-11.9 7.9-17.8 11.9c-20.9 14-40.8 27.7-59.3 41.5H283.3c-9.8-7.4-20.1-14.7-30.7-22.1l7-4.7 3-2c15.1-10.1 30.9-20.6 46.7-31.6c25 18.1 48.9 37.3 69.4 57.7C417.7 372.5 448 420.2 448 480c0 17.7-14.3 32-32 32s-32-14.3-32-32H64c0 17.7-14.3 32-32 32s-32-14.3-32-32c0-59.8 30.3-107.5 69.4-146.6c28-28 62.5-53.5 97.3-77.4c-34.8-23.9-69.3-49.3-97.3-77.4C30.3 139.5 0 91.8 0 32C0 14.3 14.3 0 32 0S64 14.3 64 32H384c0-17.7 14.3-32 32-32zM338.6 384H109.4c-10.1 10.6-18.6 21.3-25.5 32H364.1c-6.8-10.7-15.3-21.4-25.5-32zM109.4 128H338.6c10.1-10.7 18.6-21.3 25.5-32H83.9c6.8 10.7 15.3 21.3 25.5 32zm55.4 48c18.4 13.8 38.4 27.5 59.3 41.5c20.9-14 40.8-27.7 59.3-41.5H164.7z"/></svg> Adicionalmente se secuenciaron otros genomas más representando los serotipos causantes del mayor número de casos de la enfermedad. 
+
+--
+<svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M416 0c17.7 0 32 14.3 32 32c0 59.8-30.3 107.5-69.4 146.6c-28 28-62.5 53.5-97.3 77.4l-2.5 1.7c-11.9 8.1-23.8 16.1-35.5 23.9l0 0 0 0 0 0-1.6 1c-6 4-11.9 7.9-17.8 11.9c-20.9 14-40.8 27.7-59.3 41.5H283.3c-9.8-7.4-20.1-14.7-30.7-22.1l7-4.7 3-2c15.1-10.1 30.9-20.6 46.7-31.6c25 18.1 48.9 37.3 69.4 57.7C417.7 372.5 448 420.2 448 480c0 17.7-14.3 32-32 32s-32-14.3-32-32H64c0 17.7-14.3 32-32 32s-32-14.3-32-32c0-59.8 30.3-107.5 69.4-146.6c28-28 62.5-53.5 97.3-77.4c-34.8-23.9-69.3-49.3-97.3-77.4C30.3 139.5 0 91.8 0 32C0 14.3 14.3 0 32 0S64 14.3 64 32H384c0-17.7 14.3-32 32-32zM338.6 384H109.4c-10.1 10.6-18.6 21.3-25.5 32H364.1c-6.8-10.7-15.3-21.4-25.5-32zM109.4 128H338.6c10.1-10.7 18.6-21.3 25.5-32H83.9c6.8 10.7 15.3 21.3 25.5 32zm55.4 48c18.4 13.8 38.4 27.5 59.3 41.5c20.9-14 40.8-27.7 59.3-41.5H164.7z"/></svg> La comparación dio lugar al descubrimiento de la presencia de regiones variables, incluyendo islas de patogenicidad. 
+--
+
+<svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M416 0c17.7 0 32 14.3 32 32c0 59.8-30.3 107.5-69.4 146.6c-28 28-62.5 53.5-97.3 77.4l-2.5 1.7c-11.9 8.1-23.8 16.1-35.5 23.9l0 0 0 0 0 0-1.6 1c-6 4-11.9 7.9-17.8 11.9c-20.9 14-40.8 27.7-59.3 41.5H283.3c-9.8-7.4-20.1-14.7-30.7-22.1l7-4.7 3-2c15.1-10.1 30.9-20.6 46.7-31.6c25 18.1 48.9 37.3 69.4 57.7C417.7 372.5 448 420.2 448 480c0 17.7-14.3 32-32 32s-32-14.3-32-32H64c0 17.7-14.3 32-32 32s-32-14.3-32-32c0-59.8 30.3-107.5 69.4-146.6c28-28 62.5-53.5 97.3-77.4c-34.8-23.9-69.3-49.3-97.3-77.4C30.3 139.5 0 91.8 0 32C0 14.3 14.3 0 32 0S64 14.3 64 32H384c0-17.7 14.3-32 32-32zM338.6 384H109.4c-10.1 10.6-18.6 21.3-25.5 32H364.1c-6.8-10.7-15.3-21.4-25.5-32zM109.4 128H338.6c10.1-10.7 18.6-21.3 25.5-32H83.9c6.8 10.7 15.3 21.3 25.5 32zm55.4 48c18.4 13.8 38.4 27.5 59.3 41.5c20.9-14 40.8-27.7 59.3-41.5H164.7z"/></svg>Y,  revelando que los grupos compartidos de genes representaban solo el 80% del genoma. 
+
+---
+# Pangenómica - Un poco de historia
+
+--
+
+<svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M416 0c17.7 0 32 14.3 32 32c0 59.8-30.3 107.5-69.4 146.6c-28 28-62.5 53.5-97.3 77.4l-2.5 1.7c-11.9 8.1-23.8 16.1-35.5 23.9l0 0 0 0 0 0-1.6 1c-6 4-11.9 7.9-17.8 11.9c-20.9 14-40.8 27.7-59.3 41.5H283.3c-9.8-7.4-20.1-14.7-30.7-22.1l7-4.7 3-2c15.1-10.1 30.9-20.6 46.7-31.6c25 18.1 48.9 37.3 69.4 57.7C417.7 372.5 448 420.2 448 480c0 17.7-14.3 32-32 32s-32-14.3-32-32H64c0 17.7-14.3 32-32 32s-32-14.3-32-32c0-59.8 30.3-107.5 69.4-146.6c28-28 62.5-53.5 97.3-77.4c-34.8-23.9-69.3-49.3-97.3-77.4C30.3 139.5 0 91.8 0 32C0 14.3 14.3 0 32 0S64 14.3 64 32H384c0-17.7 14.3-32 32-32zM338.6 384H109.4c-10.1 10.6-18.6 21.3-25.5 32H364.1c-6.8-10.7-15.3-21.4-25.5-32zM109.4 128H338.6c10.1-10.7 18.6-21.3 25.5-32H83.9c6.8 10.7 15.3 21.3 25.5 32zm55.4 48c18.4 13.8 38.4 27.5 59.3 41.5c20.9-14 40.8-27.7 59.3-41.5H164.7z"/></svg> Estos investigadores en su momento desarrollaron herramientas para determinar el número óptimo de genomas para ser representativos de una especie e introdujeron el concepto de **Pangenoma**.
+
+---
+
+# Pangenoma
+
+.bg-washed-blue.b--purple.ba.bw2.br3.shadow-5.ph4.mt5[
+
+El término viene de la fusión Griega de pan "todo" y genoma, referente a un grupo completo de genes de un organismo. 
+
+Por definición, un  **Pangenoma** represena el grupo completo de genes de un organismo o un grupo de organismos (especie), este concepto va más allá de bacteria, puede aplicarse a humanos, plantas, hongos, etc.
+
+]
+
+---
+# Pangenoma
+
+El pangenoma posee dos componentes principales: El Genoma core genome y el genoma accesorio. 
+
+.panelset[
+.panel[.panel-name[Core Genome]
+Comprende familas de genes presentes en todos lo genomas comparados 
+
+]
+
+.panel[.panel-name[Accesory genome]
+Comprende familas de genes presentes en todos lo genomas comparados 
+
+Consiste en las familias de genes que no se compartes por todos los genomas. 
+Dentro de este podemos distinguir: 
+- **shell genome**: comprende familias de genes encontradas en la mayoría de los genomas
+- **cloud genome**: comprende familias presentes solamente en la minoría de genomas. 
+
+Los porcentajes de uno u otro varían dependiendo del software y la literatura. 
+
+]
+]
+---
+# Pangenoma
+
+El pangenoma comprende dos tipos: Abierto y cerrado. 
+
+.panelset[
+.panel[.panel-name[Abierto]
+
+Se refiere al escenario donde la adición de nuevos genomas a una especie conlleva a un incremento significativo de número de genes totales. 
+
+Esto indica un nivel alto de diversidad genómica y una potencial adquisición de nuevas características con cada nuevo genoma. 
+]
+
+.panel[.panel-name[Cerrado]
+
+Ocurre cuando la incorporación de nuevos genomas NO contribuye significativamente al conteo total de genes. 
+
+En un pangenoma cerrado, el pool permaece estable relativamente y limitado, indicando un bajo grado de diversidad genómica dentro de las especies. 
+]
+
+
+panel[.panel-name[Abierto y cerrado]
+
+&lt;img src="https://carpentries-incubator.github.io/pangenomics/fig/01-01-01.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+]
+]
+
+---
+
+### Flujo de trabajo de BGCs
+
+Para encontrar BGCs:
+
+- Tener un genoma o MAG
+
+- Obtener genomas similares
+
+- Anotar generalmente los genomas
+
+- Anotar especializadamente: Antibióticos, Resistencia, etc.
+
+  + por similitud 
+  + por divergencia
+
+- Comparar vecindades genómicas de metabolismo especializado
+
+- Metabologenómica 
+---
+
+background-size: contain
+
+&lt;img src="images/bgc1.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+
+class: inverse, center, middle
+
+# Ejemplo práctico
+
+---
+
+# Dataset
+
+
+En esta sesión vamos a trabajar con el dataset de *Tettelin et al., 2005*
+
+*S. agalactiae* 18RS21	
+*S. agalactiae* 515	
+*S. agalactiae* A909	
+*S. agalactiae* CJB111	
+*S. agalactiae* COH1	
+*S. agalactiae* H36B	
+*S. agalactiae* NEM316	
+*S. agalactiae* 2603V/R
+
+---
+
+# Obtener data de ncbi
+
+- Explorando función
+
+
+```bash
+conda activate ncbi-genome-download
+```
+
+
+
+```bash
+ncbi-genome-download --help
+```
+
+
+
+```bash
+ncbi-genome-download -n --formats fasta --genera "Streptococcus agalactiae" -S 515 bacteria
+```
+
+
+
+```bash
+ncbi-genome-download -n --formats fasta --genera "Streptococcus agalactiae" bacteria
+```
+
+---
+
+- Lista con cepas
+
+
+```bash
+nano TettelinList.txt
+```
+
+Damos copiar y pega a este texto:
+
+
+```bash
+18RS21
+515	
+A909  
+COH1  
+CJB111 
+NEM316
+2603V/R
+```
+
+- Loop para verlas
+
+
+```bash
+cat TettelinList.txt | while read line 
+do 
+echo strain $line
+done
+```
+---
+
+- Loop para ver cuántas hay 
+
+
+```bash
+cat TettelinList.txt | while read line
+do
+echo strain $line
+ncbi-genome-download --formats fasta --genera "Streptococcus agalactiae" -S $line -n bacteria
+done
+```
+
+- Loop para descargarlas
+
+
+```bash
+cat TettelinList.txt | while read line 
+do
+echo downloading strain $line
+ncbi-genome-download --formats fasta --genera "Streptococcus agalactiae" -S $line -o agalactiae_$line bacteria
+done
+```
+
+
+- Descomprimir todas
+
+```bash
+gunzip agalactiae_*/refseq/bacteria/*/*gz
+```
+---
+
+- Lididando con 2603
+
+
+```bash
+gunzip agalactiae_2603V/R/refseq/bacteria/*/*gz
+mv  agalactiae_2603V/R/refseq/bacteria/GCF_000007265.1/GCF_000007265.1_ASM726v1_genomic.fna agalactiae_2603V/
+rm -r agalactiae_2603V/R/
+```
+
+- Cómo quedó....
+
+
+```bash
+tree agalactiae_*
+```
+
+- Mover archivos
+
+
+```bash
+cat TettelinList.txt | while read line
+do 
+echo moving fasta file of strain $line
+mv agalactiae_$line/refseq/bacteria/*/*.fna agalactiae_$line/. 
+done
+
+```
+
+---
+
+- Remover demás datos
+
+```bash
+cat TettelinList.txt | while read line
+do 
+echo removing refseq directory of strain $line
+rm -r agalactiae_$line/refseq
+done
+```
+
+- Cómo quedó
+
+
+```bash
+tree agalactiae_*
+```
+
+- Podemos ver que algunas tienen dos archivos, escogemos uno y borramos el otro:
+
+```bash
+rm agalactiae_CJB111/GCF_015221735.2_ASM1522173v2_genomic.fna
+```
+
+---
+
+# Anotando genomas
+
+
+- La anotación es un proceso de identificación de genes y regiones codificantes en un genoma y determinar qué proteínas se producen de ellos. 
+
+- [**Prokka**](https://github.com/tseemann/prokka) es un pipeline que nos permite anotar bacterias, arqueas y viruses. Utiliza varios programas como Prodigal, RNAmmer, Aragorn, SignalP e Infernal. 
+
+- Antes de este paso en un MAG o genoma es deseable tener una identifiación taxonómica ya que mejora su anotación funcional. 
+
+---
+
+### Prokka
+
+- Desactivamos y activamos ambiente de prokka
+
+
+```bash
+conda deactivate
+```
+
+
+
+```bash
+conda activate prokka
+```
+
+- Para un genoma
+
+```bash
+prokka --prefix agalactiae_515_prokka --outdir agalactiae_515_prokka --kingdom Bacteria --genus Streptococcus --species agalactiae --strain 515 --usegenus --addgenes results/annotated/Streptococcus_agalactiae_515/GCF_012593885.1_ASM1259388v1_genomic.fna
+```
+
+- Loop para varios genomas
+
+
+```bash
+cat TettelinList.txt | while read line
+do 
+prokka agalactiae_$line/*.fna --kingdom Bacteria --genus Streptococcus --species agalactiae \
+--strain $line --usegenus --addgenes --prefix Streptococcus_agalactiae_${line}_prokka \
+--outdir results/annotated/Streptococcus_agalactiae_${line}_prokka
+done
+```
+
+---
+
+- Curando resultados
+
+
+```bash
+nano correct_gbk.sh
+```
+
+- Copiar y pegar este en nano
+
+```bash
+#This script will change the word Unclassified from the ORGANISM lines by that of the respective strain code.
+# Usage: sh correct_gbk.sh &lt;gbk-file-to-edit&gt;
+file=$1   # gbk file annotated with prokka
+strain=$(grep -m 1 "DEFINITION" $file |cut -d " " -f6,7) # Create a variable with the columns 6 and 7 from the DEFINITION line.
+
+sed -i '/ORGANISM/{N;s/\n//;}' $file # Put the ORGANISM field on a single line.
+
+sed -i "s/\s*Unclassified./ $strain/" $file # Substitute the word "Unclassified" with the value of the strain variable.
+```
+
+
+---
+- Correr script en loop
+
+```bash
+ls */*.gbk | while read file
+do 
+bash ../../scripts/correct_gbk.sh $file
+done
+
+```
+- Así quedó:
+
+
+```bash
+head Streptococcus_agalactiae_18RS21_prokka/Streptococcus_agalactiae_18RS21_prokka.gbk
+```
+---
+
+# Bases de datos
+.panelset[
+.panel[.panel-name[MIBiG]
+
+The Minimum Information about a Biosynthetic Gene cluster = información mínima sobre un cluster de gen biosintético 
+
+Es una base de datos que facilita la deposición sistemática y consistente de datos de genes de cluster biosintéticos (BGCs)
+
+
+
+&lt;img src="https://carpentries-incubator.github.io/genome-mining/fig/MIBiG_search.png" style="display: block; margin: auto;" /&gt;
+]
+
+.panel[.panel-name[antiSMASH]
+
+- Potencial biositetico de un genoma se introdujo en 2016 y se actualizó en 2019 y 2021.
+
+- Identifica BGCs que eson de muchas clases,como las polyketidas (PKs), péptido no ribosomales (NRPs), terpenos, aminoglicosidas, aminocoumarinas, indolocarbazolas, lantibioticos, bacteriocinas, nucleosidas, beta-lactamos, butyrolactonas, sideroforos, and melaninas. 
+
+- Utiliza modelos de perfiles conservados de Markov (HMM).
+
+
+
+
+
+]
+
+]
+
+
+---
+
+# [antiSMASH](https://docs.antismash.secondarymetabolites.org/command_line/)
+
+Puede trabajar en ario formatos como GenBank, FASTA y EMBL. 
+
+Se puede correr en: **Minimal run** y **Full-featured run**.
+
+- Desactivamos y activamos ambiente de antismash
+
+
+```bash
+conda deactivate
+```
+
+
+```bash
+conda activate antismash
+```
+
+
+
+```bash
+mkdir -p results/antismash
+```
+
+
+
+```bash
+cd results/antismash
+```
+---
+
+- Correr para 1 solo genoma
+
+
+```bash
+antismash --genefinding-tool=none results/annotated/Streptococcus_agalactiae_A909_prokka/Streptococcus_agalactiae_A909_prokka.gbk
+```
+
+
+- Correr en loop para varios
+
+
+```bash
+tree -L 1 results/antismash/Streptococcus_agalactiae_A909_prokka
+```
+
+
+
+```bash
+for gbk_file in ~/pan_workshop/results/annotated/*/S*.gbk
+ do
+	antismash --genefinding-tool=none $gbk_file
+ done
+
+```
+
+---
+
+
+El resultado es un ´.HTML´ donde están todas las regiones encontradas y da 5 cosas:
+- Region: número de región
+- Tipo de producto detectado por antiSMASH.
+- From,To: ubicación de la región (nucleotides).
+- Most similar known cluster: El compuesto más cercano al de la base de datos de MIBiG.
+- Similarity: Porcentaje de genes dentro de los compuestos más cercanos por BLAST hit.
+
+---
+
+
+
+# EvoMining
+.bg-washed-blue.b--purple.ba.bw2.br3.shadow-5.ph4.mt5[
+Evo mining es un pipeline que pretende encontrar nuevas BGCs por detección de familias de genes de enzimas con copias extra que divergen de homólogos de metabolosimos conservados. Usa los genomas anoados y genes de enzima semilla de genes conservador para obtener el core pangenoma de linajes taxonómicos. ]
+
+
+---
+
+# EvoMining
+
+- Difiere de antismash que lo hace a ciegas del conocimiento prevo de las enzimas biosintéticas de NPs. Require una revisión profunda de las prediciones de genes realizada porque puede aumentar la tasa de falsos positivos.
+- Requiere igual un lineaje taxonómico que ha sido minado con información genómica significativa.
+
+- En la práctica, Evomining reconstruye un árbol filogénetico con todos las secuencias ortólogas encontradas en GDB que permite visualiar la historia evolutiva de una familia de enzimas de determinada.
+---
+# Redes de simiitud de BGCs
+
+- En caso de que se quiera estudiar cierto BGC o cierta cepa con antiSMASH será suficiente. 
+
+- Sin embargo, a vece el objetivo es compara el potencial biosintético de 10 o de 100 genomas. 
+
+- Cuando se tienen tantos o suficiente, puede ser útil realizar redes de similitud usando BiG-SCAPE (Navarro-Muñoz et al., 2019),
+
+- Una vez se identifican los BGCs conviene compararlos con los de otras bases de datos y organismos. Estas comparaciones globales pueden identificar eventos evolutivos putativos y revela el conteimdo de genes o dominios para conocer el BGC
+
+
+---
+# BiG-SCAPE
+
+- Esta es una herramienta útil que usa una comparación todos contra todos de dominios de Pfam anotados con HMMER para computar puntajes de distancias entre BGCs. Se calculan distancias de Jaccard, el score de dominio duplicación y el index de adjacencia. 
+
+- Se pueden incluir BGCs de genomas relacionados o de varias bases de datos para dar contexto. 
+
+- Se crean redes de varios cutoffs para identificar y explorar familias de cluster de genes 
+
+
+---
+
+# BiG-SCAPE
+
+- Desactivar y activar ambiente 
+
+```bash
+conda deactivate
+```
+
+
+
+```bash
+conda activate bigscape
+```
+
+
+- Cambiar de directorio y explorar que hay
+
+```bash
+cd results/antismash/
+```
+
+
+
+```bash
+ls
+```
+
+
+
+```bash
+ls Streptococcus_agalactiae_*/*region*gbk | wc -l
+```
+---
+- Curar datos:
+
+
+```bash
+nano change-names.sh
+```
+
+- Copiar y pegar esto:
+
+
+```bash
+# This script is to rename the antiSMASH gbks for them to include the species and strain names, taken from the directory name.
+# The argument it requires is the name of the directory with the AntiSMASH output, which must NOT contain a slash at the end.
+
+# Usage for one AntiSMASH output directory:
+#     sh change-names.sh &lt;folder&gt;
+
+# Usage for multiple AntiSMASH output directory:
+#     for species in &lt;output-directory-pattern*&gt;
+#    	 do
+#    		 sh change-names.sh $species
+#    	 done
+
+
+
+ls -1 "$1"/*region*gbk | while read line # enlist the gbks of all regions in the directory and start a while loop
+ do
+    dir=$(echo $line | cut -d'/' -f1) # save the directory name in a variable
+    file=$(echo $line | cut -d'/' -f2) # save the file name in a variable
+	for directory in $dir # start a for loop
+    	do
+   		 cd $directory # enter the directory
+      	newfile=$(echo $dir-$file) # make a new variable that fuses the directory name with the file name
+			 	echo "Renaming" $file " to" $newfile # print a message showing the old and new file names
+			 	mv $file $newfile # rename
+			 	cd .. # return to main directory before it begins again
+		 done
+ done
+```
+---
+- Creando directorio y copiando archivos:
+
+
+```bash
+mkdir -p bigscape/bgcs_gbks/
+```
+
+
+
+```bash
+cp Streptococcus_agalactiae_*/*region*gbk bigscape/bgcs_gbks/
+```
+
+
+
+```bash
+ls bigscape/bgcs_gbks/
+```
+
+
+
+- Corriendo bigscape
+
+
+```bash
+python BiG-SCAPE-1.1.5/bigscape.py -i bigscape/bgcs_gbks/ -o bigscape/output_bigscape --mix --hybrids-off --mode auto --pfam_dir BiG-SCAPE-1.1.5/
+Output names
+```
+
+
+---
+
+# CORASON
+
+**CORe Analysis of Synthetic Orthologs to prioritize Natural product biosynthetic gene clusters**
+
+- Es una herramienta que encuentra genes conservador homólogos de un query de BGC en una base de datos de genomas. 
+
+- Todos los genes pueden ser sistemáticamente investigados hasta que los genes conservados del core se identifican. 
+
+- Se construye un árbol filogéntico. No tendrá en cuenta genomas que le falten uno de los genes conservados definidos por el susario. 
+
+---
+
+# CORASON
+
+- Por lo que el usuario debe definir el gen del core crucial el cual determina la venataja del análisis filogenétiicos. Se recomienda evitar PKS, NRPS incluso si son conservados porque están sobre representados en genomas bacterianos. 
+
+- Por el contrario, se usa una enzima de un solo dominio , con números limitados de familias relativo a los miembros como los que se identifican en EvoMining. 
+
+- El output es una filogenia dónde los genes que son homólogos en los BGCs se identifican con colores similares.
+
+---
+## BiG-SLiCE y BiG-FAM: Herramientas para diversidad metabólica
+
+- La presencia/ausencia de un grupo de BGCs en un genoma puede estar asociada a nichos ecológicos y micro(ambientes) que enfrente el linaje.
+
+- La contraparte de esto puede tomarse como la diversidad biosintética de un linaje bacteriano puede ser debido a su ambiente.
+
+---
+## BiG-SLiCE y BiG-FAM: Herramientas para diversidad metabólica
+
+- Para responder esto, necesitamos comparar la capacidades metabólicas de un grupo diverso de lineajes bacterianos. 
+
+- Una forma es comparar la identidad de los homologos BGCs. Los clusteres homólogos que compartir una arquitectura de dominio similar y en consecuencia produce un metabolito similar, agrupandolos en un grupo más grande llamado **familias de clusteres de genes (GCFs).**
+
+---
+# ARTS The Antibiotic Resistance Target Seeker
+
+- Está basado en el principo de que el organismo produce antibióticos contienen mecanismos de resistencia para protegerse ellos mismos de su propia producción de antibióticos. 
+
+- Algunos de estos mecanismos de resistencia son genes que incluyen dentro del BGC para la síntesis de antibióticos. Se ha encontrado que las copias duplicadas en ciertas familias core actúan como mecanismo de resistencia. 
+
+- Por esta razón, ARTS infiere la existencia de BGC de antibióticos cuando están preentes copias duplicadas de vecindades de BGCs.
+
+- El input es el output de antismash, un genoma o un metagenoma.
+
+
+---
+#Referencias
+
+- [artículo](https://www.researchgate.net/profile/Nelly-Selem/publication/360432211_Evolutionary_Genome_Mining_for_the_Discovery_and_Engineering_of_Natural_Product_Biosynthesis/links/63dbda3dc97bd76a82599e8b/Evolutionary-Genome-Mining-for-the-Discovery-and-Engineering-of-Natural-Product-Biosynthesis.pdf)
+
+- https://bigscape-corason.secondarymetabolites.org/tutorial/
+
+- https://carpentries-incubator.github.io/genome-mining/04-bigscape/index.html
+
+- https://carpentries-incubator.github.io/pangenomics/04-sequence_distance/index.html
+
+
+---
+#Referencias
+
+- Yang, C., Chowdhury, D., Zhang, Z., Cheung, W. K., Lu, A., Bian, Z., &amp; Zhang, L. (2021). A review of computational tools for generating metagenome-assembled genomes from metagenomic sequencing data. Computational and Structural Biotechnology Journal, 19, 6301-6314. https://doi.org/10.1016/j.csbj.2021.11.028
+
+- Goussarov, G., Mysara, M., Vandamme, P., &amp; Van Houdt, R. (2022). Introduction to the principles and methods underlying the recovery of metagenome-assembled genomes from metagenomic data. MicrobiologyOpen, 11, e1298. https://doi.org/10.1002/mbo3.1298
+
+- https://learn.gencore.bio.nyu.edu/metgenomics/shotgun-metagenomics/functional-analysis/
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
