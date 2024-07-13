@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Identificación de BGCs</title>
+    <title>Identificación de BGCs: Minería Genómica y Pangenómica</title>
     <meta charset="utf-8" />
     <meta name="author" content="Ph D. Stephanie Hereira Pacheco" />
-    <meta name="date" content="2024-04-08" />
-    <script src="BGC_files/header-attrs-2.25/header-attrs.js"></script>
+    <meta name="date" content="2024-07-13" />
+    <script src="BGC_files/header-attrs-2.27/header-attrs.js"></script>
     <script src="BGC_files/clipboard-2.0.6/clipboard.min.js"></script>
     <link href="BGC_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
     <script src="BGC_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
@@ -17,8 +17,8 @@
     <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
     <script src="BGC_files/xaringanExtra_fit-screen-0.2.6/fit-screen.js"></script>
     <link href="BGC_files/tachyons-4.12.0/tachyons.min.css" rel="stylesheet" />
-    <link href="BGC_files/panelset-0.2.6/panelset.css" rel="stylesheet" />
-    <script src="BGC_files/panelset-0.2.6/panelset.js"></script>
+    <link href="BGC_files/panelset-0.3.0/panelset.css" rel="stylesheet" />
+    <script src="BGC_files/panelset-0.3.0/panelset.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
   <body>
@@ -26,7 +26,7 @@
 class: center, middle, inverse, title-slide
 
 .title[
-# Identificación de BGCs
+# Identificación de BGCs: Minería Genómica y Pangenómica
 ]
 .author[
 ### Ph D. Stephanie Hereira Pacheco
@@ -35,7 +35,7 @@ class: center, middle, inverse, title-slide
 ### CTBC-UATx
 ]
 .date[
-### 2024-04-08
+### 2024-07-13
 ]
 
 ---
@@ -58,9 +58,91 @@ class: inverse, center, middle
 
 # Introducción - Generalidades - Conceptos
 
+
+
 ---
 
 ## Introducción
+
+- El desarrollo de métodos de secuenciación de genomas revolucionó casi todos los aspectos de la biología, incluida la investigación de los productos naturales.
+
+- Los metabolitos secundarios producidos por bacterias y hongos son una fuente importante de compuestos antimicrobianos y otros compuestos bioactivos. 
+
+- Han sido 3 décadas de camino desde la identificación de los primeros genes de metabolismo secundario hasta la secuenciación completa de miles de genomas y metagenomas para descubrir de manera rápida y automatizada nuevos productos naturales y su papel en el ambiente. 
+
+
+(Ziemert et al., 2016)
+---
+
+## Introducción
+
+- Los metabolitos microbianos especializados son mediadores clave de la comunicación y la competencia entre especies en el medio ambiente y en el contexto de los microbiomas de hospederos.
+
+- Sus diversas estructuras químicas han sido cruciales en el desarrollo de antibióticos, fármacos anticancerígenos, agentes de protección de cultivos, aditivos alimentarios y cosmeceúticos.  
+
+
+
+
+(Bauman et al., 2020)
+
+---
+
+
+class: inverse, center, middle
+
+# ¿Qué es la minería genómica?
+
+---
+## Minería genómica
+.bg-washed-blue.b--purple.ba.bw2.br3.shadow-5.ph4.mt5[
+La minería genómica ha surgido en la última década como una tecnología clave para explorar y explotar la diversidad de productos naturales. 
+Clave para este éxito es el hecho de que los genes que codifican las vías biosintéticas de productos naturales suelen estar agrupados en el cromosoma. Además, en muchos casos, las estructuras químicas de sus productos pueden predecirse hasta cierto punto, basándose en el análisis y la lógica biosintética de las enzimas codificadas y su similitud con contrapartes conocidas.
+
+(Navarro-Muñoz, et al., 2019)
+]
+---
+## Minería genómica
+- Los esfuerzos en descubrimientos de fábricos se han basado en un "screening" de compuestos bioactivos de plantas, hongos y bacterias.
+
+- Estos, se han usado para el desarrollo de nuevos antibióticos, agentes anticancerígenos o inmunoterapéuticos
+
+-  Impulsada por el descubrimiento de la penicilina y la estreptomicina, comenzó la era dorada de los antibióticos y los investigadores descubrieron los metabolitos secundarios microbianos como una fuente importante de nuevos compuestos antibacterianos.
+
+---
+## *Streptomyces* - un poco de historia.
+
+- El género *Streptomyces* ha sido especialmente explotado químicamente durante décadas en la búsqueda de nuevos medicamentos. Con el descubrimiento de los primeros genes biosintéticos en los años 70 y 80, los investigadores comenzaron a comprender la lógica biosintética y la base genética para la producción de estos compuestos.
+
+- Utilizando enfoques clásicos de genética o genética inversa, fue posible mapear y conectar muchos clusters de genes biosintéticos con moléculas conocidas.
+
+- A partir del nuevo milenio y las secuencias completas de genomas de dos cepas *Streptomyces coelicolor* y *Streptomyces avermitilis*, los científicos notaron el potencial inexplorado oculto en los genomas bacterianos. Un genoma de *Streptomyces* contiene en promedio alrededor de 30 clusters de genes de metabolitos secundarios, y en ese momento solo se conocían 2 o 3. 
+
+---
+## *Streptomyces* - un poco de historia.
+
+
+
+En ese momento nació la idea clásica de la minería genómica: 
+.bg-washed-blue.b--purple.ba.bw2.br3.shadow-5.ph4.mt5[
+Predecir y aislar productos naturales basados en información genética sin tener la estructura en mano. ]
+
+Inspirados por la observación de que incluso las cepas bien estudiadas contienen el potencial genético para sintetizar muchos más compuestos de los detectados analíticamente, el concepto de minería genómica se expandió a otros microbios donde la información genómica estaba disponible. 
+
+(Ziemert et al., 2016)
+
+---
+## Minería genómica
+
+- La búsqueda de enzimas, o más precisamente de genes que codifiquen enzimas posiblemente involucradas en la biosíntesis de metabolitos secundarios de interés, es la variante más "clásica" de la minería genómica. 
+
+- Aunque la diversidad de metabolitos secundarios es enorme, los principios biosintéticos y, por lo tanto, las maquinarias biosintéticas para muchos de estos compuestos suelen ser sorprendentemente conservados. Esto se refleja en la alta similitud de secuencia de aminoácidos de muchas de las enzimas biosintéticas centrales. 
+
+- Ejemplos de clases de metabolitos secundarios que utilizan tales maquinarias conservadas son los poliquétidos (**PK**), biosintetizados por sintasas de poliquétidos (**PKS**), péptidos sintetizados no ribosomalmente (**NRP**), producidos por sintetasas de péptidos no ribosomales (**NRPS**), péptidos ribosomalmente y modificados post-traduccionalmente (**RiPPs**).
+
+
+---
+
+## Conceptos básicos
 .panelset[
 .panel[.panel-name[BGCs]
 
@@ -68,7 +150,7 @@ class: inverse, center, middle
 
 - Los genes en los clusteres actúan sucesivamente hasta producir una molécula [<svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M579.8 267.7c56.5-56.5 56.5-148 0-204.5c-50-50-128.8-56.5-186.3-15.4l-1.6 1.1c-14.4 10.3-17.7 30.3-7.4 44.6s30.3 17.7 44.6 7.4l1.6-1.1c32.1-22.9 76-19.3 103.8 8.6c31.5 31.5 31.5 82.5 0 114L422.3 334.8c-31.5 31.5-82.5 31.5-114 0c-27.9-27.9-31.5-71.8-8.6-103.8l1.1-1.6c10.3-14.4 6.9-34.4-7.4-44.6s-34.4-6.9-44.6 7.4l-1.1 1.6C206.5 251.2 213 330 263 380c56.5 56.5 148 56.5 204.5 0L579.8 267.7zM60.2 244.3c-56.5 56.5-56.5 148 0 204.5c50 50 128.8 56.5 186.3 15.4l1.6-1.1c14.4-10.3 17.7-30.3 7.4-44.6s-30.3-17.7-44.6-7.4l-1.6 1.1c-32.1 22.9-76 19.3-103.8-8.6C74 372 74 321 105.5 289.5L217.7 177.2c31.5-31.5 82.5-31.5 114 0c27.9 27.9 31.5 71.8 8.6 103.9l-1.1 1.6c-10.3 14.4-6.9 34.4 7.4 44.6s34.4 6.9 44.6-7.4l1.1-1.6C433.5 260.8 427 182 377 132c-56.5-56.5-148-56.5-204.5 0L60.2 244.3z"/></svg>](https://mibig.secondarymetabolites.org/repository/BGC0000893/index.html#r1c1)
 
-&lt;img src="images/bgc.png" width="50%" style="display: block; margin: auto;" /&gt;
+&lt;img src="images/bgc.png" width="40%" style="display: block; margin: auto;" /&gt;
 ]
 
 .panel[.panel-name[Anotación de BGCs]
@@ -105,6 +187,39 @@ Estos genes pueden proporcionar cierta flexibilidad funcional y capacidad de ada
 ]
 
 ]
+---
+### Métodos para inferir BGC's
+
+- **Genómica comparativa**: Busca comparar los BGCs identificados en genomas problema con una vasta colección de BGCs de otros microorganismos y la base de datos curada [MIBiG](https://mibig.secondarymetabolites.org/), y así indicar si existen vías similares en otros organismos. 
+Otro enfoque para evaluar la novedad de los BGCs identificados es utilizar Redes de Vecindario Genómico (GNNs), que son variantes extendidas de redes de similitud de secuencias que también tienen en cuenta el vecindario del gen "objetivo". 
+
+- **Filogenia**: Se distinguen dos enfoques principales: el uso de árboles filogenéticos de especies para mapear la producción de compuestos y el uso directo de árboles de genes para inferir funciones biosintéticas. 
+
+- **Métodos basados en resistencia/objetivo**: Estas técnicas aprovechan los mecanismos de autorresistencia de los organismos productores de antibióticos, como copias adicionales de genes resistentes. 
+
+---
+### De la minería  a la pangenómica
+
+- Impulsados por los rápidos avances en la secuenciación de alto rendimiento, los esfuerzos de minería genómica están ahora expandiéndose hacia la **minería pan-genómica** a gran escala de géneros bacterianos completos, colecciones de cepas y conjuntos de datos metagenómicos, de los cuales se pueden extraer miles de genomas ensamblados a partir de metagenomas de una vez.
+
+- Estos estudios allanan el camino hacia investigaciones sistemáticas del potencial biosintético en grupos taxonómicos amplios de organismos y en ecosistemas enteros. Estos análisis a gran escala permiten identificar fácilmente miles de BGCs con grados variables de similitud mutua, que van desde homólogos ampliamente distribuidos de clústeres génicos para la producción de moléculas conocidas hasta clústeres génicos raros o únicos que codifican enzimas y vías desconocidas.
+
+---
+class: inverse, center, middle
+
+# ¿Qué es la pangenómica?
+
+---
+
+#### Pangenómica 
+
+
+- La pan-genómica se centra en el estudio del conjunto completo de genes presentes en una especie o grupo relacionado de organismos. Se basa en la idea de que la variabilidad genética dentro de una especie o grupo puede ser considerable, incluso entre individuos estrechamente relacionados.
+
+- La pan-genómica implica secuenciar y comparar múltiples genomas de una especie o grupo de especies para identificar y caracterizar el core-genoma como el genoma accesorio. Esto permite una comprensión más completa de la diversidad genética y funcional de un grupo de organismos y puede revelar genes relacionados con adaptaciones específicas, resistencia a antibióticos, metabolismo de nutrientes, entre otros aspectos.
+
+- La pan-genómica es particularmente relevante en microbiología y biología evolutiva, donde se utiliza para estudiar la evolución de microorganismos patógenos, la diversidad metabólica en comunidades microbianas y la plasticidad genómica en respuesta a cambios ambientales.
+
 ---
 # Pangenómica - Un poco de historia
 
@@ -238,6 +353,12 @@ background-size: contain
 
 &lt;img src="images/bgc1.png" width="70%" style="display: block; margin: auto;" /&gt;
 
+---
+
+background-size: contain
+[imagen](https://carpentries-incubator.github.io/genome-mining/01-introduction/index.html)
+
+&lt;img src="https://carpentries-incubator.github.io/genome-mining/fig/Chapter1Fig1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -266,28 +387,30 @@ En esta sesión vamos a trabajar con el dataset de *Tettelin et al., 2005*
 
 # Obtener data de ncbi
 
+[ncbi-genome-download](https://github.com/kblin/ncbi-genome-download)
+
 - Explorando función
 
 
-```bash
+``` bash
 conda activate ncbi-genome-download
 ```
 
 
 
-```bash
+``` bash
 ncbi-genome-download --help
 ```
 
 
 
-```bash
+``` bash
 ncbi-genome-download -n --formats fasta --genera "Streptococcus agalactiae" -S 515 bacteria
 ```
 
 
 
-```bash
+``` bash
 ncbi-genome-download -n --formats fasta --genera "Streptococcus agalactiae" bacteria
 ```
 
@@ -296,14 +419,14 @@ ncbi-genome-download -n --formats fasta --genera "Streptococcus agalactiae" bact
 - Lista con cepas
 
 
-```bash
+``` bash
 nano TettelinList.txt
 ```
 
 Damos copiar y pega a este texto:
 
 
-```bash
+``` bash
 18RS21
 515	
 A909  
@@ -316,7 +439,7 @@ NEM316
 - Loop para verlas
 
 
-```bash
+``` bash
 cat TettelinList.txt | while read line 
 do 
 echo strain $line
@@ -327,7 +450,7 @@ done
 - Loop para ver cuántas hay 
 
 
-```bash
+``` bash
 cat TettelinList.txt | while read line
 do
 echo strain $line
@@ -338,7 +461,7 @@ done
 - Loop para descargarlas
 
 
-```bash
+``` bash
 cat TettelinList.txt | while read line 
 do
 echo downloading strain $line
@@ -349,7 +472,7 @@ done
 
 - Descomprimir todas
 
-```bash
+``` bash
 gunzip agalactiae_*/refseq/bacteria/*/*gz
 ```
 ---
@@ -357,7 +480,7 @@ gunzip agalactiae_*/refseq/bacteria/*/*gz
 - Lididando con 2603
 
 
-```bash
+``` bash
 gunzip agalactiae_2603V/R/refseq/bacteria/*/*gz
 mv  agalactiae_2603V/R/refseq/bacteria/GCF_000007265.1/GCF_000007265.1_ASM726v1_genomic.fna agalactiae_2603V/
 rm -r agalactiae_2603V/R/
@@ -366,14 +489,14 @@ rm -r agalactiae_2603V/R/
 - Cómo quedó....
 
 
-```bash
+``` bash
 tree agalactiae_*
 ```
 
 - Mover archivos
 
 
-```bash
+``` bash
 cat TettelinList.txt | while read line
 do 
 echo moving fasta file of strain $line
@@ -386,7 +509,7 @@ done
 
 - Remover demás datos
 
-```bash
+``` bash
 cat TettelinList.txt | while read line
 do 
 echo removing refseq directory of strain $line
@@ -397,13 +520,13 @@ done
 - Cómo quedó
 
 
-```bash
+``` bash
 tree agalactiae_*
 ```
 
 - Podemos ver que algunas tienen dos archivos, escogemos uno y borramos el otro:
 
-```bash
+``` bash
 rm agalactiae_CJB111/GCF_015221735.2_ASM1522173v2_genomic.fna
 ```
 
@@ -425,26 +548,26 @@ rm agalactiae_CJB111/GCF_015221735.2_ASM1522173v2_genomic.fna
 - Desactivamos y activamos ambiente de prokka
 
 
-```bash
+``` bash
 conda deactivate
 ```
 
 
 
-```bash
+``` bash
 conda activate prokka
 ```
 
 - Para un genoma
 
-```bash
+``` bash
 prokka --prefix agalactiae_515_prokka --outdir agalactiae_515_prokka --kingdom Bacteria --genus Streptococcus --species agalactiae --strain 515 --usegenus --addgenes results/annotated/Streptococcus_agalactiae_515/GCF_012593885.1_ASM1259388v1_genomic.fna
 ```
 
 - Loop para varios genomas
 
 
-```bash
+``` bash
 cat TettelinList.txt | while read line
 do 
 prokka agalactiae_$line/*.fna --kingdom Bacteria --genus Streptococcus --species agalactiae \
@@ -458,13 +581,13 @@ done
 - Curando resultados
 
 
-```bash
+``` bash
 nano correct_gbk.sh
 ```
 
 - Copiar y pegar este en nano
 
-```bash
+``` bash
 #This script will change the word Unclassified from the ORGANISM lines by that of the respective strain code.
 # Usage: sh correct_gbk.sh &lt;gbk-file-to-edit&gt;
 file=$1   # gbk file annotated with prokka
@@ -479,7 +602,7 @@ sed -i "s/\s*Unclassified./ $strain/" $file # Substitute the word "Unclassified"
 ---
 - Correr script en loop
 
-```bash
+``` bash
 ls */*.gbk | while read file
 do 
 bash ../../scripts/correct_gbk.sh $file
@@ -489,7 +612,7 @@ done
 - Así quedó:
 
 
-```bash
+``` bash
 head Streptococcus_agalactiae_18RS21_prokka/Streptococcus_agalactiae_18RS21_prokka.gbk
 ```
 ---
@@ -535,24 +658,24 @@ Se puede correr en: **Minimal run** y **Full-featured run**.
 - Desactivamos y activamos ambiente de antismash
 
 
-```bash
+``` bash
 conda deactivate
 ```
 
 
-```bash
+``` bash
 conda activate antismash
 ```
 
 
 
-```bash
+``` bash
 mkdir -p results/antismash
 ```
 
 
 
-```bash
+``` bash
 cd results/antismash
 ```
 ---
@@ -560,7 +683,7 @@ cd results/antismash
 - Correr para 1 solo genoma
 
 
-```bash
+``` bash
 antismash --genefinding-tool=none results/annotated/Streptococcus_agalactiae_A909_prokka/Streptococcus_agalactiae_A909_prokka.gbk
 ```
 
@@ -568,13 +691,13 @@ antismash --genefinding-tool=none results/annotated/Streptococcus_agalactiae_A90
 - Correr en loop para varios
 
 
-```bash
+``` bash
 tree -L 1 results/antismash/Streptococcus_agalactiae_A909_prokka
 ```
 
 
 
-```bash
+``` bash
 for gbk_file in ~/pan_workshop/results/annotated/*/S*.gbk
  do
 	antismash --genefinding-tool=none $gbk_file
@@ -637,46 +760,46 @@ Evo mining es un pipeline que pretende encontrar nuevas BGCs por detección de f
 
 - Desactivar y activar ambiente 
 
-```bash
+``` bash
 conda deactivate
 ```
 
 
 
-```bash
+``` bash
 conda activate bigscape
 ```
 
 
 - Cambiar de directorio y explorar que hay
 
-```bash
+``` bash
 cd results/antismash/
 ```
 
 
 
-```bash
+``` bash
 ls
 ```
 
 
 
-```bash
+``` bash
 ls Streptococcus_agalactiae_*/*region*gbk | wc -l
 ```
 ---
 - Curar datos:
 
 
-```bash
+``` bash
 nano change-names.sh
 ```
 
 - Copiar y pegar esto:
 
 
-```bash
+``` bash
 # This script is to rename the antiSMASH gbks for them to include the species and strain names, taken from the directory name.
 # The argument it requires is the name of the directory with the AntiSMASH output, which must NOT contain a slash at the end.
 
@@ -709,19 +832,19 @@ ls -1 "$1"/*region*gbk | while read line # enlist the gbks of all regions in the
 - Creando directorio y copiando archivos:
 
 
-```bash
+``` bash
 mkdir -p bigscape/bgcs_gbks/
 ```
 
 
 
-```bash
+``` bash
 cp Streptococcus_agalactiae_*/*region*gbk bigscape/bgcs_gbks/
 ```
 
 
 
-```bash
+``` bash
 ls bigscape/bgcs_gbks/
 ```
 
@@ -730,7 +853,7 @@ ls bigscape/bgcs_gbks/
 - Corriendo bigscape
 
 
-```bash
+``` bash
 python BiG-SCAPE-1.1.5/bigscape.py -i bigscape/bgcs_gbks/ -o bigscape/output_bigscape --mix --hybrids-off --mode auto --pfam_dir BiG-SCAPE-1.1.5/
 Output names
 ```

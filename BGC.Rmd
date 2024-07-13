@@ -1,5 +1,5 @@
 ---
-title: "Identificación de BGCs"
+title: "Identificación de BGCs: Minería Genómica y Pangenómica"
 author: "Ph D. Stephanie Hereira Pacheco"
 institute: "CTBC-UATx"
 date: "`r Sys.Date()`"
@@ -47,9 +47,91 @@ class: inverse, center, middle
 
 # Introducción - Generalidades - Conceptos
 
+
+
 ---
 
 ## Introducción
+
+- El desarrollo de métodos de secuenciación de genomas revolucionó casi todos los aspectos de la biología, incluida la investigación de los productos naturales.
+
+- Los metabolitos secundarios producidos por bacterias y hongos son una fuente importante de compuestos antimicrobianos y otros compuestos bioactivos. 
+
+- Han sido 3 décadas de camino desde la identificación de los primeros genes de metabolismo secundario hasta la secuenciación completa de miles de genomas y metagenomas para descubrir de manera rápida y automatizada nuevos productos naturales y su papel en el ambiente. 
+
+
+(Ziemert et al., 2016)
+---
+
+## Introducción
+
+- Los metabolitos microbianos especializados son mediadores clave de la comunicación y la competencia entre especies en el medio ambiente y en el contexto de los microbiomas de hospederos.
+
+- Sus diversas estructuras químicas han sido cruciales en el desarrollo de antibióticos, fármacos anticancerígenos, agentes de protección de cultivos, aditivos alimentarios y cosmeceúticos.  
+
+
+
+
+(Bauman et al., 2020)
+
+---
+
+
+class: inverse, center, middle
+
+# ¿Qué es la minería genómica?
+
+---
+## Minería genómica
+.bg-washed-blue.b--purple.ba.bw2.br3.shadow-5.ph4.mt5[
+La minería genómica ha surgido en la última década como una tecnología clave para explorar y explotar la diversidad de productos naturales. 
+Clave para este éxito es el hecho de que los genes que codifican las vías biosintéticas de productos naturales suelen estar agrupados en el cromosoma. Además, en muchos casos, las estructuras químicas de sus productos pueden predecirse hasta cierto punto, basándose en el análisis y la lógica biosintética de las enzimas codificadas y su similitud con contrapartes conocidas.
+
+(Navarro-Muñoz, et al., 2019)
+]
+---
+## Minería genómica
+- Los esfuerzos en descubrimientos de fábricos se han basado en un "screening" de compuestos bioactivos de plantas, hongos y bacterias.
+
+- Estos, se han usado para el desarrollo de nuevos antibióticos, agentes anticancerígenos o inmunoterapéuticos
+
+-  Impulsada por el descubrimiento de la penicilina y la estreptomicina, comenzó la era dorada de los antibióticos y los investigadores descubrieron los metabolitos secundarios microbianos como una fuente importante de nuevos compuestos antibacterianos.
+
+---
+## *Streptomyces* - un poco de historia.
+
+- El género *Streptomyces* ha sido especialmente explotado químicamente durante décadas en la búsqueda de nuevos medicamentos. Con el descubrimiento de los primeros genes biosintéticos en los años 70 y 80, los investigadores comenzaron a comprender la lógica biosintética y la base genética para la producción de estos compuestos.
+
+- Utilizando enfoques clásicos de genética o genética inversa, fue posible mapear y conectar muchos clusters de genes biosintéticos con moléculas conocidas.
+
+- A partir del nuevo milenio y las secuencias completas de genomas de dos cepas *Streptomyces coelicolor* y *Streptomyces avermitilis*, los científicos notaron el potencial inexplorado oculto en los genomas bacterianos. Un genoma de *Streptomyces* contiene en promedio alrededor de 30 clusters de genes de metabolitos secundarios, y en ese momento solo se conocían 2 o 3. 
+
+---
+## *Streptomyces* - un poco de historia.
+
+
+
+En ese momento nació la idea clásica de la minería genómica: 
+.bg-washed-blue.b--purple.ba.bw2.br3.shadow-5.ph4.mt5[
+Predecir y aislar productos naturales basados en información genética sin tener la estructura en mano. ]
+
+Inspirados por la observación de que incluso las cepas bien estudiadas contienen el potencial genético para sintetizar muchos más compuestos de los detectados analíticamente, el concepto de minería genómica se expandió a otros microbios donde la información genómica estaba disponible. 
+
+(Ziemert et al., 2016)
+
+---
+## Minería genómica
+
+- La búsqueda de enzimas, o más precisamente de genes que codifiquen enzimas posiblemente involucradas en la biosíntesis de metabolitos secundarios de interés, es la variante más "clásica" de la minería genómica. 
+
+- Aunque la diversidad de metabolitos secundarios es enorme, los principios biosintéticos y, por lo tanto, las maquinarias biosintéticas para muchos de estos compuestos suelen ser sorprendentemente conservados. Esto se refleja en la alta similitud de secuencia de aminoácidos de muchas de las enzimas biosintéticas centrales. 
+
+- Ejemplos de clases de metabolitos secundarios que utilizan tales maquinarias conservadas son los poliquétidos (**PK**), biosintetizados por sintasas de poliquétidos (**PKS**), péptidos sintetizados no ribosomalmente (**NRP**), producidos por sintetasas de péptidos no ribosomales (**NRPS**), péptidos ribosomalmente y modificados post-traduccionalmente (**RiPPs**).
+
+
+---
+
+## Conceptos básicos
 .panelset[
 .panel[.panel-name[BGCs]
 
@@ -57,7 +139,7 @@ class: inverse, center, middle
 
 - Los genes en los clusteres actúan sucesivamente hasta producir una molécula [`r fontawesome::fa("link")`](https://mibig.secondarymetabolites.org/repository/BGC0000893/index.html#r1c1)
 
-```{r, echo=FALSE, out.width="50%", fig.align='center'}
+```{r, echo=FALSE, out.width="40%", fig.align='center'}
 knitr::include_graphics("images/bgc.png")
 ```
 ]
@@ -96,6 +178,39 @@ Estos genes pueden proporcionar cierta flexibilidad funcional y capacidad de ada
 ]
 
 ]
+---
+### Métodos para inferir BGC's
+
+- **Genómica comparativa**: Busca comparar los BGCs identificados en genomas problema con una vasta colección de BGCs de otros microorganismos y la base de datos curada [MIBiG](https://mibig.secondarymetabolites.org/), y así indicar si existen vías similares en otros organismos. 
+Otro enfoque para evaluar la novedad de los BGCs identificados es utilizar Redes de Vecindario Genómico (GNNs), que son variantes extendidas de redes de similitud de secuencias que también tienen en cuenta el vecindario del gen "objetivo". 
+
+- **Filogenia**: Se distinguen dos enfoques principales: el uso de árboles filogenéticos de especies para mapear la producción de compuestos y el uso directo de árboles de genes para inferir funciones biosintéticas. 
+
+- **Métodos basados en resistencia/objetivo**: Estas técnicas aprovechan los mecanismos de autorresistencia de los organismos productores de antibióticos, como copias adicionales de genes resistentes. 
+
+---
+### De la minería  a la pangenómica
+
+- Impulsados por los rápidos avances en la secuenciación de alto rendimiento, los esfuerzos de minería genómica están ahora expandiéndose hacia la **minería pan-genómica** a gran escala de géneros bacterianos completos, colecciones de cepas y conjuntos de datos metagenómicos, de los cuales se pueden extraer miles de genomas ensamblados a partir de metagenomas de una vez.
+
+- Estos estudios allanan el camino hacia investigaciones sistemáticas del potencial biosintético en grupos taxonómicos amplios de organismos y en ecosistemas enteros. Estos análisis a gran escala permiten identificar fácilmente miles de BGCs con grados variables de similitud mutua, que van desde homólogos ampliamente distribuidos de clústeres génicos para la producción de moléculas conocidas hasta clústeres génicos raros o únicos que codifican enzimas y vías desconocidas.
+
+---
+class: inverse, center, middle
+
+# ¿Qué es la pangenómica?
+
+---
+
+#### Pangenómica 
+
+
+- La pan-genómica se centra en el estudio del conjunto completo de genes presentes en una especie o grupo relacionado de organismos. Se basa en la idea de que la variabilidad genética dentro de una especie o grupo puede ser considerable, incluso entre individuos estrechamente relacionados.
+
+- La pan-genómica implica secuenciar y comparar múltiples genomas de una especie o grupo de especies para identificar y caracterizar el core-genoma como el genoma accesorio. Esto permite una comprensión más completa de la diversidad genética y funcional de un grupo de organismos y puede revelar genes relacionados con adaptaciones específicas, resistencia a antibióticos, metabolismo de nutrientes, entre otros aspectos.
+
+- La pan-genómica es particularmente relevante en microbiología y biología evolutiva, donde se utiliza para estudiar la evolución de microorganismos patógenos, la diversidad metabólica en comunidades microbianas y la plasticidad genómica en respuesta a cambios ambientales.
+
 ---
 # Pangenómica - Un poco de historia
 
@@ -234,6 +349,15 @@ background-size: contain
 knitr::include_graphics("images/bgc1.png")
 ```
 
+---
+
+background-size: contain
+[imagen](https://carpentries-incubator.github.io/genome-mining/01-introduction/index.html)
+
+```{r, echo=FALSE, out.width="80%", fig.align='center'}
+knitr::include_graphics("https://carpentries-incubator.github.io/genome-mining/fig/Chapter1Fig1.png")
+
+```
 
 ---
 
@@ -261,6 +385,8 @@ En esta sesión vamos a trabajar con el dataset de *Tettelin et al., 2005*
 ---
 
 # Obtener data de ncbi
+
+[ncbi-genome-download](https://github.com/kblin/ncbi-genome-download)
 
 - Explorando función
 
