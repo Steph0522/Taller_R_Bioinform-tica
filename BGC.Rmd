@@ -91,7 +91,7 @@ Clave para este éxito es el hecho de que los genes que codifican las vías bios
 ]
 ---
 ## Minería genómica
-- Los esfuerzos en descubrimientos de fábricos se han basado en un "screening" de compuestos bioactivos de plantas, hongos y bacterias.
+- Los esfuerzos en descubrimientos de estos compuestos se han basado en un "screening" de compuestos bioactivos de plantas, hongos y bacterias.
 
 - Estos, se han usado para el desarrollo de nuevos antibióticos, agentes anticancerígenos o inmunoterapéuticos
 
@@ -307,7 +307,7 @@ Esto indica un nivel alto de diversidad genómica y una potencial adquisición d
 
 Ocurre cuando la incorporación de nuevos genomas NO contribuye significativamente al conteo total de genes. 
 
-En un pangenoma cerrado, el pool permaece estable relativamente y limitado, indicando un bajo grado de diversidad genómica dentro de las especies. 
+En un pangenoma cerrado, el pool permanece estable relativamente y limitado, indicando un bajo grado de diversidad genómica dentro de las especies. 
 ]
 
 
@@ -691,27 +691,27 @@ El resultado es un ´.HTML´ donde están todas las regiones encontradas y da 5 
 
 # EvoMining
 .bg-washed-blue.b--purple.ba.bw2.br3.shadow-5.ph4.mt5[
-Evo mining es un pipeline que pretende encontrar nuevas BGCs por detección de familias de genes de enzimas con copias extra que divergen de homólogos de metabolosimos conservados. Usa los genomas anoados y genes de enzima semilla de genes conservador para obtener el core pangenoma de linajes taxonómicos. ]
+Evo mining es un pipeline que pretende encontrar nuevas BGCs por detección de familias de genes de enzimas con copias extra que divergen de homólogos de metabolosimos conservados. Usa los genomas anotados y genes de enzima semilla de genes conservador para obtener el core pangenoma de linajes taxonómicos. ]
 
 
 ---
 
 # EvoMining
 
-- Difiere de antismash que lo hace a ciegas del conocimiento prevo de las enzimas biosintéticas de NPs. Require una revisión profunda de las prediciones de genes realizada porque puede aumentar la tasa de falsos positivos.
+- Difiere de antismash que lo hace a ciegas del conocimiento previo de las enzimas biosintéticas de NPs. Require una revisión profunda de las prediciones de genes realizada porque puede aumentar la tasa de falsos positivos.
 - Requiere igual un lineaje taxonómico que ha sido minado con información genómica significativa.
 
-- En la práctica, Evomining reconstruye un árbol filogénetico con todos las secuencias ortólogas encontradas en GDB que permite visualiar la historia evolutiva de una familia de enzimas de determinada.
+- En la práctica, Evomining reconstruye un árbol filogénetico con todos las secuencias ortólogas encontradas en GDB que permite visualizar la historia evolutiva de una familia de enzimas de determinada naturaleza.
 ---
 # Redes de simiitud de BGCs
 
 - En caso de que se quiera estudiar cierto BGC o cierta cepa con antiSMASH será suficiente. 
 
-- Sin embargo, a vece el objetivo es compara el potencial biosintético de 10 o de 100 genomas. 
+- Sin embargo, a veces el objetivo es comparar el potencial biosintético de 10 o de 100 genomas. 
 
-- Cuando se tienen tantos o suficiente, puede ser útil realizar redes de similitud usando BiG-SCAPE (Navarro-Muñoz et al., 2019),
+- Cuando se tienen tantos o suficientes, puede ser útil realizar redes de similitud usando BiG-SCAPE (Navarro-Muñoz et al., 2019),
 
-- Una vez se identifican los BGCs conviene compararlos con los de otras bases de datos y organismos. Estas comparaciones globales pueden identificar eventos evolutivos putativos y revela el conteimdo de genes o dominios para conocer el BGC
+- Una vez se identifican los BGCs conviene compararlos con los de otras bases de datos y organismos. Estas comparaciones globales pueden identificar eventos evolutivos putativos y revela el contenido de genes o dominios para conocer el BGC
 
 
 ---
@@ -828,13 +828,13 @@ Output names
 
 - Todos los genes pueden ser sistemáticamente investigados hasta que los genes conservados del core se identifican. 
 
-- Se construye un árbol filogéntico. No tendrá en cuenta genomas que le falten uno de los genes conservados definidos por el susario. 
+- Se construye un árbol filogéntico. No tendrá en cuenta genomas que le falten uno de los genes conservados definidos por el usario. 
 
 ---
 
 # CORASON
 
-- Por lo que el usuario debe definir el gen del core crucial el cual determina la venataja del análisis filogenétiicos. Se recomienda evitar PKS, NRPS incluso si son conservados porque están sobre representados en genomas bacterianos. 
+- Por lo que el usuario debe definir el gen del core crucial el cual determina la ventaja del análisis filogenético. Se recomienda evitar PKS, NRPS incluso si son conservados porque están sobre representados en genomas bacterianos. 
 
 - Por el contrario, se usa una enzima de un solo dominio , con números limitados de familias relativo a los miembros como los que se identifican en EvoMining. 
 

@@ -4,8 +4,8 @@
     <title>Identificación de BGCs: Minería Genómica y Pangenómica</title>
     <meta charset="utf-8" />
     <meta name="author" content="Ph D. Stephanie Hereira Pacheco" />
-    <meta name="date" content="2024-07-13" />
-    <script src="BGC_files/header-attrs-2.27/header-attrs.js"></script>
+    <meta name="date" content="2024-07-14" />
+    <script src="BGC_files/header-attrs-2.25/header-attrs.js"></script>
     <script src="BGC_files/clipboard-2.0.6/clipboard.min.js"></script>
     <link href="BGC_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
     <script src="BGC_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
@@ -17,8 +17,8 @@
     <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
     <script src="BGC_files/xaringanExtra_fit-screen-0.2.6/fit-screen.js"></script>
     <link href="BGC_files/tachyons-4.12.0/tachyons.min.css" rel="stylesheet" />
-    <link href="BGC_files/panelset-0.3.0/panelset.css" rel="stylesheet" />
-    <script src="BGC_files/panelset-0.3.0/panelset.js"></script>
+    <link href="BGC_files/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="BGC_files/panelset-0.2.6/panelset.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
   <body>
@@ -35,7 +35,7 @@ class: center, middle, inverse, title-slide
 ### CTBC-UATx
 ]
 .date[
-### 2024-07-13
+### 2024-07-14
 ]
 
 ---
@@ -102,7 +102,7 @@ Clave para este éxito es el hecho de que los genes que codifican las vías bios
 ]
 ---
 ## Minería genómica
-- Los esfuerzos en descubrimientos de fábricos se han basado en un "screening" de compuestos bioactivos de plantas, hongos y bacterias.
+- Los esfuerzos en descubrimientos de estos compuestos se han basado en un "screening" de compuestos bioactivos de plantas, hongos y bacterias.
 
 - Estos, se han usado para el desarrollo de nuevos antibióticos, agentes anticancerígenos o inmunoterapéuticos
 
@@ -316,7 +316,7 @@ Esto indica un nivel alto de diversidad genómica y una potencial adquisición d
 
 Ocurre cuando la incorporación de nuevos genomas NO contribuye significativamente al conteo total de genes. 
 
-En un pangenoma cerrado, el pool permaece estable relativamente y limitado, indicando un bajo grado de diversidad genómica dentro de las especies. 
+En un pangenoma cerrado, el pool permanece estable relativamente y limitado, indicando un bajo grado de diversidad genómica dentro de las especies. 
 ]
 
 
@@ -392,25 +392,25 @@ En esta sesión vamos a trabajar con el dataset de *Tettelin et al., 2005*
 - Explorando función
 
 
-``` bash
+```bash
 conda activate ncbi-genome-download
 ```
 
 
 
-``` bash
+```bash
 ncbi-genome-download --help
 ```
 
 
 
-``` bash
+```bash
 ncbi-genome-download -n --formats fasta --genera "Streptococcus agalactiae" -S 515 bacteria
 ```
 
 
 
-``` bash
+```bash
 ncbi-genome-download -n --formats fasta --genera "Streptococcus agalactiae" bacteria
 ```
 
@@ -419,14 +419,14 @@ ncbi-genome-download -n --formats fasta --genera "Streptococcus agalactiae" bact
 - Lista con cepas
 
 
-``` bash
+```bash
 nano TettelinList.txt
 ```
 
 Damos copiar y pega a este texto:
 
 
-``` bash
+```bash
 18RS21
 515	
 A909  
@@ -439,7 +439,7 @@ NEM316
 - Loop para verlas
 
 
-``` bash
+```bash
 cat TettelinList.txt | while read line 
 do 
 echo strain $line
@@ -450,7 +450,7 @@ done
 - Loop para ver cuántas hay 
 
 
-``` bash
+```bash
 cat TettelinList.txt | while read line
 do
 echo strain $line
@@ -461,7 +461,7 @@ done
 - Loop para descargarlas
 
 
-``` bash
+```bash
 cat TettelinList.txt | while read line 
 do
 echo downloading strain $line
@@ -472,7 +472,7 @@ done
 
 - Descomprimir todas
 
-``` bash
+```bash
 gunzip agalactiae_*/refseq/bacteria/*/*gz
 ```
 ---
@@ -480,7 +480,7 @@ gunzip agalactiae_*/refseq/bacteria/*/*gz
 - Lididando con 2603
 
 
-``` bash
+```bash
 gunzip agalactiae_2603V/R/refseq/bacteria/*/*gz
 mv  agalactiae_2603V/R/refseq/bacteria/GCF_000007265.1/GCF_000007265.1_ASM726v1_genomic.fna agalactiae_2603V/
 rm -r agalactiae_2603V/R/
@@ -489,14 +489,14 @@ rm -r agalactiae_2603V/R/
 - Cómo quedó....
 
 
-``` bash
+```bash
 tree agalactiae_*
 ```
 
 - Mover archivos
 
 
-``` bash
+```bash
 cat TettelinList.txt | while read line
 do 
 echo moving fasta file of strain $line
@@ -509,7 +509,7 @@ done
 
 - Remover demás datos
 
-``` bash
+```bash
 cat TettelinList.txt | while read line
 do 
 echo removing refseq directory of strain $line
@@ -520,13 +520,13 @@ done
 - Cómo quedó
 
 
-``` bash
+```bash
 tree agalactiae_*
 ```
 
 - Podemos ver que algunas tienen dos archivos, escogemos uno y borramos el otro:
 
-``` bash
+```bash
 rm agalactiae_CJB111/GCF_015221735.2_ASM1522173v2_genomic.fna
 ```
 
@@ -548,26 +548,26 @@ rm agalactiae_CJB111/GCF_015221735.2_ASM1522173v2_genomic.fna
 - Desactivamos y activamos ambiente de prokka
 
 
-``` bash
+```bash
 conda deactivate
 ```
 
 
 
-``` bash
+```bash
 conda activate prokka
 ```
 
 - Para un genoma
 
-``` bash
+```bash
 prokka --prefix agalactiae_515_prokka --outdir agalactiae_515_prokka --kingdom Bacteria --genus Streptococcus --species agalactiae --strain 515 --usegenus --addgenes results/annotated/Streptococcus_agalactiae_515/GCF_012593885.1_ASM1259388v1_genomic.fna
 ```
 
 - Loop para varios genomas
 
 
-``` bash
+```bash
 cat TettelinList.txt | while read line
 do 
 prokka agalactiae_$line/*.fna --kingdom Bacteria --genus Streptococcus --species agalactiae \
@@ -581,13 +581,13 @@ done
 - Curando resultados
 
 
-``` bash
+```bash
 nano correct_gbk.sh
 ```
 
 - Copiar y pegar este en nano
 
-``` bash
+```bash
 #This script will change the word Unclassified from the ORGANISM lines by that of the respective strain code.
 # Usage: sh correct_gbk.sh &lt;gbk-file-to-edit&gt;
 file=$1   # gbk file annotated with prokka
@@ -602,7 +602,7 @@ sed -i "s/\s*Unclassified./ $strain/" $file # Substitute the word "Unclassified"
 ---
 - Correr script en loop
 
-``` bash
+```bash
 ls */*.gbk | while read file
 do 
 bash ../../scripts/correct_gbk.sh $file
@@ -612,7 +612,7 @@ done
 - Así quedó:
 
 
-``` bash
+```bash
 head Streptococcus_agalactiae_18RS21_prokka/Streptococcus_agalactiae_18RS21_prokka.gbk
 ```
 ---
@@ -658,24 +658,24 @@ Se puede correr en: **Minimal run** y **Full-featured run**.
 - Desactivamos y activamos ambiente de antismash
 
 
-``` bash
+```bash
 conda deactivate
 ```
 
 
-``` bash
+```bash
 conda activate antismash
 ```
 
 
 
-``` bash
+```bash
 mkdir -p results/antismash
 ```
 
 
 
-``` bash
+```bash
 cd results/antismash
 ```
 ---
@@ -683,7 +683,7 @@ cd results/antismash
 - Correr para 1 solo genoma
 
 
-``` bash
+```bash
 antismash --genefinding-tool=none results/annotated/Streptococcus_agalactiae_A909_prokka/Streptococcus_agalactiae_A909_prokka.gbk
 ```
 
@@ -691,13 +691,13 @@ antismash --genefinding-tool=none results/annotated/Streptococcus_agalactiae_A90
 - Correr en loop para varios
 
 
-``` bash
+```bash
 tree -L 1 results/antismash/Streptococcus_agalactiae_A909_prokka
 ```
 
 
 
-``` bash
+```bash
 for gbk_file in ~/pan_workshop/results/annotated/*/S*.gbk
  do
 	antismash --genefinding-tool=none $gbk_file
@@ -721,27 +721,27 @@ El resultado es un ´.HTML´ donde están todas las regiones encontradas y da 5 
 
 # EvoMining
 .bg-washed-blue.b--purple.ba.bw2.br3.shadow-5.ph4.mt5[
-Evo mining es un pipeline que pretende encontrar nuevas BGCs por detección de familias de genes de enzimas con copias extra que divergen de homólogos de metabolosimos conservados. Usa los genomas anoados y genes de enzima semilla de genes conservador para obtener el core pangenoma de linajes taxonómicos. ]
+Evo mining es un pipeline que pretende encontrar nuevas BGCs por detección de familias de genes de enzimas con copias extra que divergen de homólogos de metabolosimos conservados. Usa los genomas anotados y genes de enzima semilla de genes conservador para obtener el core pangenoma de linajes taxonómicos. ]
 
 
 ---
 
 # EvoMining
 
-- Difiere de antismash que lo hace a ciegas del conocimiento prevo de las enzimas biosintéticas de NPs. Require una revisión profunda de las prediciones de genes realizada porque puede aumentar la tasa de falsos positivos.
+- Difiere de antismash que lo hace a ciegas del conocimiento previo de las enzimas biosintéticas de NPs. Require una revisión profunda de las prediciones de genes realizada porque puede aumentar la tasa de falsos positivos.
 - Requiere igual un lineaje taxonómico que ha sido minado con información genómica significativa.
 
-- En la práctica, Evomining reconstruye un árbol filogénetico con todos las secuencias ortólogas encontradas en GDB que permite visualiar la historia evolutiva de una familia de enzimas de determinada.
+- En la práctica, Evomining reconstruye un árbol filogénetico con todos las secuencias ortólogas encontradas en GDB que permite visualizar la historia evolutiva de una familia de enzimas de determinada naturaleza.
 ---
 # Redes de simiitud de BGCs
 
 - En caso de que se quiera estudiar cierto BGC o cierta cepa con antiSMASH será suficiente. 
 
-- Sin embargo, a vece el objetivo es compara el potencial biosintético de 10 o de 100 genomas. 
+- Sin embargo, a veces el objetivo es comparar el potencial biosintético de 10 o de 100 genomas. 
 
-- Cuando se tienen tantos o suficiente, puede ser útil realizar redes de similitud usando BiG-SCAPE (Navarro-Muñoz et al., 2019),
+- Cuando se tienen tantos o suficientes, puede ser útil realizar redes de similitud usando BiG-SCAPE (Navarro-Muñoz et al., 2019),
 
-- Una vez se identifican los BGCs conviene compararlos con los de otras bases de datos y organismos. Estas comparaciones globales pueden identificar eventos evolutivos putativos y revela el conteimdo de genes o dominios para conocer el BGC
+- Una vez se identifican los BGCs conviene compararlos con los de otras bases de datos y organismos. Estas comparaciones globales pueden identificar eventos evolutivos putativos y revela el contenido de genes o dominios para conocer el BGC
 
 
 ---
@@ -760,46 +760,46 @@ Evo mining es un pipeline que pretende encontrar nuevas BGCs por detección de f
 
 - Desactivar y activar ambiente 
 
-``` bash
+```bash
 conda deactivate
 ```
 
 
 
-``` bash
+```bash
 conda activate bigscape
 ```
 
 
 - Cambiar de directorio y explorar que hay
 
-``` bash
+```bash
 cd results/antismash/
 ```
 
 
 
-``` bash
+```bash
 ls
 ```
 
 
 
-``` bash
+```bash
 ls Streptococcus_agalactiae_*/*region*gbk | wc -l
 ```
 ---
 - Curar datos:
 
 
-``` bash
+```bash
 nano change-names.sh
 ```
 
 - Copiar y pegar esto:
 
 
-``` bash
+```bash
 # This script is to rename the antiSMASH gbks for them to include the species and strain names, taken from the directory name.
 # The argument it requires is the name of the directory with the AntiSMASH output, which must NOT contain a slash at the end.
 
@@ -832,19 +832,19 @@ ls -1 "$1"/*region*gbk | while read line # enlist the gbks of all regions in the
 - Creando directorio y copiando archivos:
 
 
-``` bash
+```bash
 mkdir -p bigscape/bgcs_gbks/
 ```
 
 
 
-``` bash
+```bash
 cp Streptococcus_agalactiae_*/*region*gbk bigscape/bgcs_gbks/
 ```
 
 
 
-``` bash
+```bash
 ls bigscape/bgcs_gbks/
 ```
 
@@ -853,7 +853,7 @@ ls bigscape/bgcs_gbks/
 - Corriendo bigscape
 
 
-``` bash
+```bash
 python BiG-SCAPE-1.1.5/bigscape.py -i bigscape/bgcs_gbks/ -o bigscape/output_bigscape --mix --hybrids-off --mode auto --pfam_dir BiG-SCAPE-1.1.5/
 Output names
 ```
@@ -869,13 +869,13 @@ Output names
 
 - Todos los genes pueden ser sistemáticamente investigados hasta que los genes conservados del core se identifican. 
 
-- Se construye un árbol filogéntico. No tendrá en cuenta genomas que le falten uno de los genes conservados definidos por el susario. 
+- Se construye un árbol filogéntico. No tendrá en cuenta genomas que le falten uno de los genes conservados definidos por el usario. 
 
 ---
 
 # CORASON
 
-- Por lo que el usuario debe definir el gen del core crucial el cual determina la venataja del análisis filogenétiicos. Se recomienda evitar PKS, NRPS incluso si son conservados porque están sobre representados en genomas bacterianos. 
+- Por lo que el usuario debe definir el gen del core crucial el cual determina la ventaja del análisis filogenético. Se recomienda evitar PKS, NRPS incluso si son conservados porque están sobre representados en genomas bacterianos. 
 
 - Por el contrario, se usa una enzima de un solo dominio , con números limitados de familias relativo a los miembros como los que se identifican en EvoMining. 
 
