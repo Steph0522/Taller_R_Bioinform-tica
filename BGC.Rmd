@@ -581,10 +581,7 @@ sed -i "s/\s*Unclassified./ $strain/" $file # Substitute the word "Unclassified"
 ---
 - Correr script en loop
 ```{bash, eval=FALSE}
-ls */*.gbk | while read file
-do 
-bash ../../scripts/correct_gbk.sh $file
-done
+ls */*.gbk | while read file; do bash correct_gbk.sh $file; done
 
 ```
 - Así quedó:
@@ -671,7 +668,7 @@ tree -L 1 results/antismash/Streptococcus_agalactiae_A909_prokka
 
 
 ```{bash, eval=FALSE}
-for gbk_file in ../.../results/annotated/*/S*.gbk
+for gbk_file in ../../results/annotated/*/S*.gbk
  do
 	antismash --genefinding-tool=none $gbk_file
  done
