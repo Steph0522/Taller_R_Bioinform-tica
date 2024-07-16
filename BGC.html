@@ -4,7 +4,7 @@
     <title>Identificación de BGCs: Minería Genómica y Pangenómica</title>
     <meta charset="utf-8" />
     <meta name="author" content="Ph D. Stephanie Hereira Pacheco" />
-    <meta name="date" content="2024-07-15" />
+    <meta name="date" content="2024-07-16" />
     <script src="BGC_files/header-attrs-2.25/header-attrs.js"></script>
     <script src="BGC_files/clipboard-2.0.6/clipboard.min.js"></script>
     <link href="BGC_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
@@ -37,7 +37,7 @@ class: center, middle, inverse, title-slide
 ### CTBC-UATx
 ]
 .date[
-### 2024-07-15
+### 2024-07-16
 ]
 
 ---
@@ -563,7 +563,7 @@ conda activate prokka
 - Para un genoma
 
 ```bash
-prokka --prefix agalactiae_515_prokka --outdir agalactiae_515_prokka --kingdom Bacteria --genus Streptococcus --species agalactiae --strain 515 --usegenus --addgenes results/annotated/Streptococcus_agalactiae_515/GCF_012593885.1_ASM1259388v1_genomic.fna
+prokka agalactiae_2603V/GCF_000007265.1_ASM726v1_genomic.fna --prefix agalactiae_2603V_prokka --outdir results/annotated/agalactiae_2603V_prokka --kingdom Bacteria --genus Streptococcus --species agalactiae --strain 2603V --usegenus --addgenes
 ```
 
 - Loop para varios genomas
